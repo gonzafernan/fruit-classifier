@@ -11,5 +11,7 @@ informe.tex
 informe.toc
 
 informe.out
-representacion_info/
+
+.ipynb_checkpoints/01-representacion-checkpoint.ipynb
+.ipynb_checkpoints/02-filtracion-checkpoint.ipynb
 
