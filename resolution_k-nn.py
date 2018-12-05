@@ -1,19 +1,14 @@
 import numpy as np
 import pickle
 from skimage import io
-from m_function import normSize, img2grey, haralick, hu_moments, Elemento
+from m_function import ft_extract, Elemento
 
 # IMPORT Y ANALISIS DE IMAGEN A TESTEAR
 test = Elemento()
 test_dir = input("Enter test file name: ")
-aux = io.imread('./test/' + test_dir)
-aux = normSize(aux)
-test.image = img2grey(aux, mode='cv')
+image = io.imread('./test/' + test_dir)
 
-test_fht = haralick(test.image)
-test_fhm = hu_moments(test.image)
-aux = np.hstack([test_fht, test_fhm])
-test.feature = aux.reshape(1, -1)
+test.image, test.feature = ft_extract(image)
 
 test.label = 'banana'
 
@@ -23,16 +18,16 @@ f.close()
 
 i = 0
 sum = 0
-for feature in data[0].feature[0]:
-        sum = sum + np.power(np.abs(test.feature[0][i] - feature), 2)
+for ft in data[0].feature:
+        sum = sum + np.power(np.abs(test.feature[i] - ft), 2)
         i += 1
 d = np.sqrt(sum)
 
 for element in data:
     sum = 0
     i = 0
-    for feature in (element.feature[0]):
-        sum = sum + np.power(np.abs((test.feature[0][i]) - feature), 2)
+    for ft in (element.feature):
+        sum = sum + np.power(np.abs((test.feature[i]) - ft), 2)
         i += 1
 
     element.distance = np.sqrt(sum)

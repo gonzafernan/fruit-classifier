@@ -1,4 +1,4 @@
-
+import numpy as np
 from skimage import color, filters
 
 import cv2
@@ -21,8 +21,11 @@ def normSize(image, size=(tuple((100, 100)))):
 
 
 # Filtrado de imagen con filtro gaussiano
-def imgClean(image, sigma=1):
-    clean = filters.gaussian(image, sigma)
+def imgClean(image, sigma=1, mode='cv'):
+    if (mode == 'cv'):
+        clean = cv2.GaussianBlur(image, (3, 3), 0)
+    else:
+        clean = filters.gaussian(image, sigma)
     return clean
 
 
@@ -45,12 +48,17 @@ def haralick(image):
     return feature
 
 
-class Elemento():
-    def __init__(self):
-        self.label = None
-        self.image = None
-        self.feature = []
-        self.distance = 0
+def ft_extract(image):
+    aux = normSize(image)
+    aux = img2grey(aux, mode='cv')
+    # aux = imgClean(aux, mode='cv')
+
+    image_fht = haralick(aux)
+    image_fhm = hu_moments(aux)
+    feature = np.hstack([image_fht, image_fhm])
+    feature = feature.reshape(1, -1)
+
+    return aux, feature[0]
 
 
 # https://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console
@@ -77,3 +85,11 @@ def printProgressBar(iteration, total, prefix='', suffix='',
     # Print New Line on Complete
     if iteration == total:
         print()
+
+
+class Elemento():
+    def __init__(self):
+        self.label = None
+        self.image = None
+        self.feature = []
+        self.distance = 0

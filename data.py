@@ -2,7 +2,7 @@ import numpy as np
 import pickle
 from skimage import io
 from m_function import normSize, img2grey, haralick, hu_moments
-from m_function import Elemento, printProgressBar
+from m_function import Elemento, printProgressBar, imgClean, ft_extract
 
 
 # IMPORT DE LA BASE DE DATOS
@@ -21,15 +21,17 @@ printProgressBar(iter, len(banana), prefix='Loading banana data:',
 for fruit in banana:
     data.append(Elemento())
     data[i].label = 'banana'
-    aux = fruit
-    aux = normSize(aux)
-    data[i].image = img2grey(aux, mode='cv')
+    # aux = fruit
+    # aux = normSize(aux)
+    # aux = img2grey(aux, mode='cv')
+    # data[i].image = imgClean(aux, mode='cv')
 
-    ft_haralick = haralick(data[i].image)
-    ft_hu_moments = hu_moments(data[i].image)
-    global_ft = np.hstack([ft_haralick, ft_hu_moments])
+    # ft_haralick = haralick(data[i].image)
+    # ft_hu_moments = hu_moments(data[i].image)
+    # global_ft = np.hstack([ft_haralick, ft_hu_moments])
 
-    data[i].feature = global_ft.reshape(1, -1)
+    # data[i].feature = global_ft.reshape(1, -1)
+    data[i].image, data[i].feature = ft_extract(fruit)
     i += 1
     iter += 1
     printProgressBar(iter, len(banana), prefix='Loading banana data:',
@@ -43,16 +45,17 @@ printProgressBar(iter, len(orange), prefix='Loading orange data:',
 for fruit in orange:
     data.append(Elemento())
     data[i].label = 'orange'
-    aux = fruit
-    aux = normSize(aux)
+    # aux = fruit
+    # aux = normSize(aux)
+    # aux = img2grey(aux, mode='cv')
+    # data[i].image = imgClean(aux, mode='cv')
 
-    data[i].image = img2grey(aux, mode='cv')
+    # ft_haralick = haralick(data[i].image)
+    # ft_hu_moments = hu_moments(data[i].image)
+    # global_ft = np.hstack([ft_haralick, ft_hu_moments])
 
-    ft_haralick = haralick(data[i].image)
-    ft_hu_moments = hu_moments(data[i].image)
-    global_ft = np.hstack([ft_haralick, ft_hu_moments])
-
-    data[i].feature = global_ft.reshape(1, -1)
+    # data[i].feature = global_ft.reshape(1, -1)
+    data[i].image, data[i].feature = ft_extract(fruit)
     i += 1
     iter += 1
     printProgressBar(iter, len(orange), prefix='Loading orange data:',
@@ -66,15 +69,17 @@ printProgressBar(iter, len(lemon), prefix='Loading lemon data:',
 for fruit in lemon:
     data.append(Elemento())
     data[i].label = 'lemon'
-    aux = fruit
-    aux = normSize(aux)
-    data[i].image = img2grey(aux, mode='cv')
+    # aux = fruit
+    # aux = normSize(aux)
+    # aux = img2grey(aux, mode='cv')
+    # data[i].image = imgClean(aux, mode='cv')
 
-    ft_haralick = haralick(data[i].image)
-    ft_hu_moments = hu_moments(data[i].image)
-    global_ft = np.hstack([ft_haralick, ft_hu_moments])
+    # ft_haralick = haralick(data[i].image)
+    # ft_hu_moments = hu_moments(data[i].image)
+    # global_ft = np.hstack([ft_haralick, ft_hu_moments])
 
-    data[i].feature = global_ft.reshape(1, -1)
+    # data[i].feature = global_ft.reshape(1, -1)
+    data[i].image, data[i].feature = ft_extract(fruit)
     i += 1
     iter += 1
     printProgressBar(iter, len(lemon), prefix='Loading lemon data:',

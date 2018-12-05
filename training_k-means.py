@@ -25,9 +25,9 @@ i = 0
 #         l_mean = data[i].feature[0]
 #         l_flag = False
 #     i += 1
-b_mean = random.choice(data).feature[0]
-o_mean = random.choice(data).feature[0]
-l_mean = random.choice(data).feature[0]
+b_mean = random.choice(data).feature
+o_mean = random.choice(data).feature
+l_mean = random.choice(data).feature
 
 iter = 0
 MAX_ITER = 50
@@ -49,7 +49,7 @@ while (iter < MAX_ITER):
         sum_l = 0
 
         i = 0
-        for feature in (element.feature[0]):
+        for feature in (element.feature):
             sum_b += np.power(np.abs(b_mean[i] - feature), 2)
             sum_o += np.power(np.abs(o_mean[i] - feature), 2)
             sum_l += np.power(np.abs(l_mean[i] - feature), 2)
@@ -61,18 +61,18 @@ while (iter < MAX_ITER):
 
         if ((dist_b <= dist_o) and (dist_b <= dist_l)):
             element.label = 'banana'
-            banana_data.append(element.feature[0])
+            banana_data.append(element.feature)
         elif ((dist_o <= dist_b) and (dist_o <= dist_l)):
             element.label = 'orange'
-            orange_data.append(element.feature[0])
+            orange_data.append(element.feature)
         elif ((dist_l <= dist_b) and (dist_l <= dist_o)):
             element.label = 'lemon'
-            lemon_data.append(element.feature[0])
+            lemon_data.append(element.feature)
 
     # ACTUALIZACION
     """
     i = 0
-    for i in range(0, len(data[0].feature[0])-1):
+    for i in range(0, len(data[0].feature)-1):
         sum_b = 0
         for b in banana_data:
             sum_b += b[i]
