@@ -1,4 +1,45 @@
-#+TITLE: Yellow/Orange Fruit Sorter
+#+TITLE: Trabajo Final Inteligencia Artificial I -año 2018: Visión Artificial
 #+AUTHOR: Gonzalo G. Fernández
 
-Soy muy bueno poniendo nombres a los repositorios.
+* Ejecución
+El modo de ejecución del proyecto es mediante ejecución de archivos
+/python/. La versión de /python/ necesaria es 3.6.
+
+El modo de ejecución varía según si se dispone de la base de datos o
+no:
+
+** Ejecución con base de datos
+En consola, la ejecución es como sigue:
+- Para analizar la base de datos:
+#+BEGIN_SRC bash
+  python data.py
+#+END_SRC
+Con lo que se genera un archivo /data.pkl/ con la información de la
+base de datos ya analizada. De aquí en adelante es necesario elegir
+con que algoritmo se desea continuar.
+- Si se desea resolver el problema mediante algoritmo *K-nn* (K-nearest
+neighbors), se procede con:
+#+BEGIN_SRC bash
+  python resolution_k-nn.py
+#+END_SRC 
+- Si se desea resolver el problema mediante algoritmo *K-means*, se
+  procede con:
+#+BEGIN_SRC bash
+  python training_k-means.py
+  python test.py
+#+END_SRC
+Donde /training_k-means.py/ genera un archivo /means.pkl/ con los
+/means/ para cada clase finales.
+
+** Ejecución sin base de datos
+Es posible ejecutar el proyecto sin disponer de la base de datos (que
+no está disponible en el repositorio). Para ésto los archivos con
+formato /.pkl/ están presentes y solo es necesario ejecutar:
+#+BEGIN_SRC bash
+  python resolution_k-nn.py
+#+END_SRC
+Para resolver el problema con K-nn, o de lo contrario:
+#+BEGIN_SRC bash
+  python test.py
+#+END_SRC
+Para resolver el problema mediante algoritmo K-means.
