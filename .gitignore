@@ -20,3 +20,8 @@ notas.txt
 notas.txt.save
 
 data/
+
+m_function.py~
+resolution_knn.py~
+test.py~
+__pycache__/
