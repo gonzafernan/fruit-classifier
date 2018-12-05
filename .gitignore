@@ -22,6 +22,7 @@ notas.txt.save
 data/
 
 m_function.py~
-resolution_knn.py~
+resolution_k-nn.py~
+data.py~
 test.py~
 __pycache__/

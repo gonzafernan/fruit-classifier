@@ -1,48 +1,21 @@
 import numpy as np
 import random
 import pickle
+from m_function import printProgressBar
+
 from skimage import io
-from m_function import normSize, img2grey, haralick, hu_moments
+from m_function import normSize, img2grey, haralick, hu_moments, Elemento
 
-
-class Elemento:
-    def __init__(self):
-        self.label = None
-        self.image = None
-        self.feature = []
-        self.distance = 0
-
-
-# https://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console
-# Print iterations progress
-def printProgressBar(iteration, total, prefix='', suffix='',
-                     decimals=1, length=100, fill='█'):
-    """
-    Call in a loop to create terminal progress bar
-    @params:
-        iteration   - Required  : current iteration (Int)
-        total       - Required  : total iterations (Int)
-        prefix      - Optional  : prefix string (Str)
-        suffix      - Optional  : suffix string (Str)
-        decimals    - Optional  : positive number of decimals in percent complete (Int)
-        length      - Optional  : character length of bar (Int)
-        fill        - Optional  : bar fill character (Str)
-    """
-    percent = (
-        "{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
-    filledLength = int(length * iteration // total)
-    bar = fill * filledLength + '-' * (length - filledLength)
-    print('\r%s |%s| %s%% %s' % (prefix, bar, percent, suffix), end='\r')
-    # Print New Line on Complete
-    if iteration == total:
-        print()
-
+# f = open('data.pkl', 'rb')
+# data = pickle.load(f)
+# f.close()
 
 # IMPORT DE LA BASE DE DATOS
 banana = io.ImageCollection('./data/banana/*.png:./data/banana/*.jpg')
 orange = io.ImageCollection('./data/orange/*.png:./data/orange/*.jpg')
 lemon = io.ImageCollection('./data/lemon/*.png:./data/lemon/*.jpg')
 
+# ANALISIS DE LA BASE DE DATOS
 data = []
 i = 0
 
@@ -60,6 +33,7 @@ for fruit in banana:
 
     data[i].feature = global_ft.reshape(1, -1)
     i += 1
+print("Banana data is ready")
 
 # Análisis de naranjas en base de datos
 for fruit in orange:
@@ -76,6 +50,7 @@ for fruit in orange:
 
     data[i].feature = global_ft.reshape(1, -1)
     i += 1
+print("Orange data is ready")
 
 # Análisis de limones en la base de datos
 for fruit in lemon:
@@ -91,6 +66,7 @@ for fruit in lemon:
 
     data[i].feature = global_ft.reshape(1, -1)
     i += 1
+print("Lemon data is ready")
 
 # Means iniciales (por ahora no random)
 b_flag = True
@@ -114,7 +90,7 @@ o_mean = random.choice(data).feature[0]
 l_mean = random.choice(data).feature[0]
 
 iter = 0
-MAX_ITER = 150
+MAX_ITER = 10
 
 printProgressBar(iter, MAX_ITER, prefix='Progress:',
                  suffix='Complete', length=50)

@@ -1,15 +1,7 @@
 import numpy as np
 import pickle
 from skimage import io
-from m_function import normSize, img2grey, haralick, hu_moments
-
-
-class Elemento:
-    def __init__(self):
-        self.label = None
-        self.image = None
-        self.feature = []
-        self.distance = 0
+from m_function import normSize, img2grey, haralick, hu_moments, Elemento
 
 
 with open('means.pkl', 'rb') as f:  # Python 3: open(..., 'rb')
