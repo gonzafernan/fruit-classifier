@@ -3,70 +3,10 @@ import random
 import pickle
 from m_function import printProgressBar
 
-from skimage import io
-from m_function import normSize, img2grey, haralick, hu_moments, Elemento
 
-# f = open('data.pkl', 'rb')
-# data = pickle.load(f)
-# f.close()
-
-# IMPORT DE LA BASE DE DATOS
-banana = io.ImageCollection('./data/banana/*.png:./data/banana/*.jpg')
-orange = io.ImageCollection('./data/orange/*.png:./data/orange/*.jpg')
-lemon = io.ImageCollection('./data/lemon/*.png:./data/lemon/*.jpg')
-
-# ANALISIS DE LA BASE DE DATOS
-data = []
-i = 0
-
-# Análisis de bananas en base de datos
-for fruit in banana:
-    data.append(Elemento())
-    data[i].label = 'banana'
-    aux = fruit
-    aux = normSize(aux)
-    data[i].image = img2grey(aux, mode='cv')
-
-    ft_haralick = haralick(data[i].image)
-    ft_hu_moments = hu_moments(data[i].image)
-    global_ft = np.hstack([ft_haralick, ft_hu_moments])
-
-    data[i].feature = global_ft.reshape(1, -1)
-    i += 1
-print("Banana data is ready")
-
-# Análisis de naranjas en base de datos
-for fruit in orange:
-    data.append(Elemento())
-    data[i].label = 'orange'
-    aux = fruit
-    aux = normSize(aux)
-
-    data[i].image = img2grey(aux, mode='cv')
-
-    ft_haralick = haralick(data[i].image)
-    ft_hu_moments = hu_moments(data[i].image)
-    global_ft = np.hstack([ft_haralick, ft_hu_moments])
-
-    data[i].feature = global_ft.reshape(1, -1)
-    i += 1
-print("Orange data is ready")
-
-# Análisis de limones en la base de datos
-for fruit in lemon:
-    data.append(Elemento())
-    data[i].label = 'lemon'
-    aux = fruit
-    aux = normSize(aux)
-    data[i].image = img2grey(aux, mode='cv')
-
-    ft_haralick = haralick(data[i].image)
-    ft_hu_moments = hu_moments(data[i].image)
-    global_ft = np.hstack([ft_haralick, ft_hu_moments])
-
-    data[i].feature = global_ft.reshape(1, -1)
-    i += 1
-print("Lemon data is ready")
+f = open('data.pkl', 'rb')
+data = pickle.load(f)
+f.close()
 
 # Means iniciales (por ahora no random)
 b_flag = True
@@ -90,7 +30,7 @@ o_mean = random.choice(data).feature[0]
 l_mean = random.choice(data).feature[0]
 
 iter = 0
-MAX_ITER = 10
+MAX_ITER = 50
 
 printProgressBar(iter, MAX_ITER, prefix='Progress:',
                  suffix='Complete', length=50)
@@ -164,9 +104,10 @@ while (iter < MAX_ITER):
 
     # CONDICION DE SALIDA (Por ahora por cantidad de iteraciones)
     iter += 1
-    # printProgressBar(iter, MAX_ITER, prefix='Progress:',
-    #                  suffix='Complete', length=50)
-    print(len(banana_data), len(orange_data), len(lemon_data))
+    printProgressBar(iter, MAX_ITER, prefix='Progress:',
+                     suffix='Complete', length=50)
+    # CONVERGENCIA
+    # print(len(banana_data), len(orange_data), len(lemon_data))
 
 with open('means.pkl', 'wb') as f:
     pickle.dump([b_mean, o_mean, l_mean], f)
