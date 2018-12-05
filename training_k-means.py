@@ -113,17 +113,17 @@ b_mean = random.choice(data).feature[0]
 o_mean = random.choice(data).feature[0]
 l_mean = random.choice(data).feature[0]
 
-banana_data = []
-orange_data = []
-lemon_data = []
-
 iter = 0
-MAX_ITER = 1000
+MAX_ITER = 150
 
 printProgressBar(iter, MAX_ITER, prefix='Progress:',
                  suffix='Complete', length=50)
 
 while (iter < MAX_ITER):
+
+    banana_data = []
+    orange_data = []
+    lemon_data = []
 
     # ASIGNACION
 
@@ -154,31 +154,43 @@ while (iter < MAX_ITER):
             lemon_data.append(element.feature[0])
 
     # ACTUALIZACION
-
+    """
     i = 0
-
-    sum_b = 0
-    sum_o = 0
-    sum_l = 0
-
     for i in range(0, len(data[0].feature[0])-1):
-
+        sum_b = 0
         for b in banana_data:
             sum_b += b[i]
+        sum_o = 0
         for o in orange_data:
             sum_o += o[i]
+        sum_l = 0
         for l in lemon_data:
             sum_l += l[i]
 
         b_mean[i] = sum_b / len(banana_data)
         o_mean[i] = sum_o / len(orange_data)
         l_mean[i] = sum_l / len(lemon_data)
+    """
+    sum_b = np.zeros(b_mean.shape, b_mean.dtype)
+    sum_o = np.zeros(o_mean.shape, o_mean.dtype)
+    sum_l = np.zeros(l_mean.shape, l_mean.dtype)
+
+    for b in banana_data:
+        sum_b += b
+    for o in orange_data:
+        sum_o += o
+    for l in lemon_data:
+        sum_l += l
+
+    b_mean = sum_b / len(banana_data)
+    o_mean = sum_o / len(orange_data)
+    l_mean = sum_l / len(lemon_data)
 
     # CONDICION DE SALIDA (Por ahora por cantidad de iteraciones)
     iter += 1
-    printProgressBar(iter, MAX_ITER, prefix='Progress:',
-                     suffix='Complete', length=50)
+    # printProgressBar(iter, MAX_ITER, prefix='Progress:',
+    #                  suffix='Complete', length=50)
+    print(len(banana_data), len(orange_data), len(lemon_data))
 
-print("\n")
 with open('means.pkl', 'wb') as f:
     pickle.dump([b_mean, o_mean, l_mean], f)
