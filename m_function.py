@@ -1,5 +1,6 @@
 import numpy as np
 from skimage import color, filters
+from skimage.feature import hog
 
 import cv2
 import mahotas
@@ -48,17 +49,46 @@ def haralick(image):
     return feature
 
 
-def ft_extract(image):
-    aux = normSize(image)
-    aux = img2grey(aux, mode='cv')
-    # aux = imgClean(aux, mode='cv')
+def color_histogram(image, mask=None, bins=8):
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+    hist = cv2.calcHist([image], [0, 1, 2], None, [bins, bins, bins],
+                        [0, 256, 0, 256, 0, 256])
+    cv2.normalize(hist, hist)
+    feature = hist.flatten()
+    return feature
 
-    image_fht = haralick(aux)
-    image_fhm = hu_moments(aux)
-    feature = np.hstack([image_fht, image_fhm])
+
+def m_hog(image):
+    feature = hog(image).ravel()
+    return feature
+
+
+def ft_extract(image):
+    image = normSize(image)
+    aux = img2grey(image, mode='cv')
+    aux = imgClean(aux, mode='cv')
+
+    # image_fht = haralick(aux)
+    # image_fhm = hu_moments(aux)
+    image_fch = color_histogram(image)
+    # image_fhog = m_hog(aux)
+
+    # feature = np.hstack([image_fht, image_fhm, image_fhog])
+    feature = image_fch
     feature = feature.reshape(1, -1)
 
-    return aux, feature[0]
+    # COLOR HISTOGRAM
+    sum = 0
+    for m in feature[0]:
+        sum += m
+    med = sum / len(feature[0])
+    sum = 0
+    for m in feature[0]:
+        sum += np.power((m - med), 2)
+    dstd = np.sqrt(sum / (len(feature[0]) - 1))
+    feature = [med, dstd]
+
+    return aux, feature
 
 
 # https://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console

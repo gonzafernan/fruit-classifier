@@ -1,9 +1,9 @@
-import numpy as np
+from matplotlib import pyplot as plt
 import pickle
 from skimage import io
-from m_function import normSize, img2grey, haralick, hu_moments
-from m_function import Elemento, printProgressBar, imgClean, ft_extract
+from m_function import Elemento, printProgressBar, ft_extract
 
+fig, ax = plt.subplots()
 
 # IMPORT DE LA BASE DE DATOS
 banana = io.ImageCollection('./data/banana/*.png:./data/banana/*.jpg')
@@ -21,17 +21,9 @@ printProgressBar(iter, len(banana), prefix='Loading banana data:',
 for fruit in banana:
     data.append(Elemento())
     data[i].label = 'banana'
-    # aux = fruit
-    # aux = normSize(aux)
-    # aux = img2grey(aux, mode='cv')
-    # data[i].image = imgClean(aux, mode='cv')
-
-    # ft_haralick = haralick(data[i].image)
-    # ft_hu_moments = hu_moments(data[i].image)
-    # global_ft = np.hstack([ft_haralick, ft_hu_moments])
-
-    # data[i].feature = global_ft.reshape(1, -1)
     data[i].image, data[i].feature = ft_extract(fruit)
+    # print(data[i].feature.shape)
+    ax.plot(data[i].feature[0], data[i].feature[1], 'y')
     i += 1
     iter += 1
     printProgressBar(iter, len(banana), prefix='Loading banana data:',
@@ -45,17 +37,8 @@ printProgressBar(iter, len(orange), prefix='Loading orange data:',
 for fruit in orange:
     data.append(Elemento())
     data[i].label = 'orange'
-    # aux = fruit
-    # aux = normSize(aux)
-    # aux = img2grey(aux, mode='cv')
-    # data[i].image = imgClean(aux, mode='cv')
-
-    # ft_haralick = haralick(data[i].image)
-    # ft_hu_moments = hu_moments(data[i].image)
-    # global_ft = np.hstack([ft_haralick, ft_hu_moments])
-
-    # data[i].feature = global_ft.reshape(1, -1)
     data[i].image, data[i].feature = ft_extract(fruit)
+    ax.plot(data[i].feature[0], data[i].feature[1], 'r')
     i += 1
     iter += 1
     printProgressBar(iter, len(orange), prefix='Loading orange data:',
@@ -69,17 +52,8 @@ printProgressBar(iter, len(lemon), prefix='Loading lemon data:',
 for fruit in lemon:
     data.append(Elemento())
     data[i].label = 'lemon'
-    # aux = fruit
-    # aux = normSize(aux)
-    # aux = img2grey(aux, mode='cv')
-    # data[i].image = imgClean(aux, mode='cv')
-
-    # ft_haralick = haralick(data[i].image)
-    # ft_hu_moments = hu_moments(data[i].image)
-    # global_ft = np.hstack([ft_haralick, ft_hu_moments])
-
-    # data[i].feature = global_ft.reshape(1, -1)
     data[i].image, data[i].feature = ft_extract(fruit)
+    ax.plot(data[i].feature[0], data[i].feature[1], 'b')
     i += 1
     iter += 1
     printProgressBar(iter, len(lemon), prefix='Loading lemon data:',
