@@ -66,29 +66,18 @@ def m_hog(image):
 def ft_extract(image):
     image = normSize(image)
     aux = img2grey(image, mode='cv')
-    aux = imgClean(aux, mode='cv')
+    # aux = imgClean(aux, mode='cv')
 
     # image_fht = haralick(aux)
-    # image_fhm = hu_moments(aux)
-    image_fch = color_histogram(image)
+    image_fhm = hu_moments(aux)
+    # image_fch = color_histogram(image)
     # image_fhog = m_hog(aux)
 
     # feature = np.hstack([image_fht, image_fhm, image_fhog])
-    feature = image_fch
-    feature = feature.reshape(1, -1)
+    med, dstd = stats(image_fhm)
+    # feature = feature.reshape(1, -1)
 
-    # COLOR HISTOGRAM
-    sum = 0
-    for m in feature[0]:
-        sum += m
-    med = sum / len(feature[0])
-    sum = 0
-    for m in feature[0]:
-        sum += np.power((m - med), 2)
-    dstd = np.sqrt(sum / (len(feature[0]) - 1))
-    feature = [med, dstd]
-
-    return aux, feature
+    return aux, [med, dstd]
 
 
 # https://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console
@@ -115,6 +104,20 @@ def printProgressBar(iteration, total, prefix='', suffix='',
     # Print New Line on Complete
     if iteration == total:
         print()
+
+
+def stats(arr):
+
+    sum = 0
+    for value in arr:
+        sum += value
+    med = sum / len(arr)
+    sum = 0
+    for value in arr:
+        sum += np.power((value - med), 2)
+    dstd = np.sqrt(sum / (len(arr) - 1))
+
+    return med, dstd
 
 
 class Elemento():

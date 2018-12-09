@@ -25,9 +25,10 @@ i = 0
 #         l_mean = data[i].feature[0]
 #         l_flag = False
 #     i += 1
-b_mean = random.choice(data).feature
-o_mean = random.choice(data).feature
-l_mean = random.choice(data).feature
+
+b_mean = list(random.choice(data).feature)
+o_mean = list(random.choice(data).feature)
+l_mean = list(random.choice(data).feature)
 
 iter = 0
 MAX_ITER = 50
@@ -70,7 +71,6 @@ while (iter < MAX_ITER):
             lemon_data.append(element.feature)
 
     # ACTUALIZACION
-    """
     i = 0
     for i in range(0, len(data[0].feature)-1):
         sum_b = 0
@@ -86,10 +86,11 @@ while (iter < MAX_ITER):
         b_mean[i] = sum_b / len(banana_data)
         o_mean[i] = sum_o / len(orange_data)
         l_mean[i] = sum_l / len(lemon_data)
+
     """
-    sum_b = np.zeros(b_mean.shape, b_mean.dtype)
-    sum_o = np.zeros(o_mean.shape, o_mean.dtype)
-    sum_l = np.zeros(l_mean.shape, l_mean.dtype)
+    sum_b = [None] * len(b_mean)
+    sum_o = [None] * len(o_mean)
+    sum_l = [None] * len(l_mean)
 
     for b in banana_data:
         sum_b += b
@@ -101,6 +102,7 @@ while (iter < MAX_ITER):
     b_mean = sum_b / len(banana_data)
     o_mean = sum_o / len(orange_data)
     l_mean = sum_l / len(lemon_data)
+    """
 
     # CONDICION DE SALIDA (Por ahora por cantidad de iteraciones)
     iter += 1
