@@ -8,35 +8,20 @@ f = open('data.pkl', 'rb')
 data = pickle.load(f)
 f.close()
 
-# Means iniciales (por ahora no random)
-b_flag = True
-o_flag = True
-l_flag = True
-i = 0
-
-# while (b_flag or o_flag or l_flag):
-#     if (data[i].label == 'banana' and b_flag):
-#         b_mean = data[i].feature[0]
-#         b_flag = False
-#     if (data[i].label == 'orange' and o_flag):
-#         o_mean = data[i].feature[0]
-#         o_flag = False
-#     if (data[i].label == 'lemon' and l_flag):
-#         l_mean = data[i].feature[0]
-#         l_flag = False
-#     i += 1
-
+# Means iniciales
 b_mean = list(random.choice(data).feature)
 o_mean = list(random.choice(data).feature)
 l_mean = list(random.choice(data).feature)
 
-iter = 0
-MAX_ITER = 50
+b_flag = True
+o_flag = True
+l_flag = True
 
-printProgressBar(iter, MAX_ITER, prefix='Progress:',
-                 suffix='Complete', length=50)
+b_len = 0
+o_len = 0
+l_len = 0
 
-while (iter < MAX_ITER):
+while (b_flag or o_flag or l_flag):
 
     banana_data = []
     orange_data = []
@@ -87,29 +72,22 @@ while (iter < MAX_ITER):
         o_mean[i] = sum_o / len(orange_data)
         l_mean[i] = sum_l / len(lemon_data)
 
-    """
-    sum_b = [None] * len(b_mean)
-    sum_o = [None] * len(o_mean)
-    sum_l = [None] * len(l_mean)
-
-    for b in banana_data:
-        sum_b += b
-    for o in orange_data:
-        sum_o += o
-    for l in lemon_data:
-        sum_l += l
-
-    b_mean = sum_b / len(banana_data)
-    o_mean = sum_o / len(orange_data)
-    l_mean = sum_l / len(lemon_data)
-    """
-
-    # CONDICION DE SALIDA (Por ahora por cantidad de iteraciones)
-    iter += 1
-    printProgressBar(iter, MAX_ITER, prefix='Progress:',
-                     suffix='Complete', length=50)
-    # CONVERGENCIA
+    # CONVERGENCIA Y CONDICIÓN DE SALIDA
     # print(len(banana_data), len(orange_data), len(lemon_data))
+    if (len(banana_data) == b_len):
+        b_flag = False
+    else:
+        b_len = len(banana_data)
+
+    if (len(orange_data) == o_len):
+        o_flag = False
+    else:
+        o_len = len(orange_data)
+
+    if (len(lemon_data) == l_len):
+        l_flag = False
+    else:
+        l_len = len(lemon_data)
 
 with open('means.pkl', 'wb') as f:
     pickle.dump([b_mean, o_mean, l_mean], f)

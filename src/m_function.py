@@ -25,16 +25,28 @@ def normSize(image, size=(tuple((100, 100)))):
 def imgClean(image, sigma=1, mode='cv'):
     if (mode == 'cv'):
         clean = cv2.GaussianBlur(image, (3, 3), 0)
-    else:
+    elif (mode == 'sk'):
         clean = filters.gaussian(image, sigma)
     return clean
 
 
 # Detección de bordes con filtro sobel
-def imgEdge(image, sigma=1):
-    aux = imgClean(image, sigma)
-    edge = filters.sobel(aux)
+def imgEdge(image, mode='sk'):
+    if (mode == 'sk'):
+        edge = filters.sobel(image)
+    elif (mode == 'cv'):
+        edge = cv2.Laplacian(image, cv2.CV_64F)
     return edge
+
+
+# Segmentación con threshold isodata
+def threshold(image, mode='sk'):
+    if (mode == 'sk'):
+        th = filters.threshold_isodata(image)
+    elif (mode == 'cv'):
+        ret, th = cv2.threshold(image, 0, 255,
+                                cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    return (image < th)
 
 
 # Extracción de características Hu Moments
@@ -49,6 +61,7 @@ def haralick(image):
     return feature
 
 
+# Extracción de histograma de color
 def color_histogram(image, mask=None, bins=8):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     hist = cv2.calcHist([image], [0, 1, 2], None, [bins, bins, bins],
@@ -58,8 +71,9 @@ def color_histogram(image, mask=None, bins=8):
     return feature
 
 
+# Extracción de características HOG
 def m_hog(image):
-    feature = hog(image).ravel()
+    feature = hog(image, block_norm='L2-Hys').ravel()
     return feature
 
 

@@ -11,13 +11,6 @@ with open('means.pkl', 'rb') as f:  # Python 3: open(..., 'rb')
 test = Elemento()
 test_dir = input("Enter test file name: ")
 image = io.imread('./test/' + test_dir)
-# aux = normSize(aux)
-# test.image = img2grey(aux, mode='cv')
-
-# test_fht = haralick(test.image)
-# test_fhm = hu_moments(test.image)
-# aux = np.hstack([test_fht, test_fhm])
-# test.feature = aux.reshape(1, -1)
 
 test.image, test.feature = ft_extract(image)
 
@@ -36,7 +29,6 @@ for i in range(0, len(test.feature)-1):
 dist_b = np.sqrt(sum_b)
 dist_o = np.sqrt(sum_o)
 dist_l = np.sqrt(sum_l)
-print(dist_b, dist_o, dist_l)
 
 if ((dist_b <= dist_o) and (dist_b <= dist_l)):
     test.label = 'banana'
