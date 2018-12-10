@@ -6,14 +6,13 @@ from m_function import Elemento, printProgressBar, ft_extract
 fig, ax = plt.subplots()
 
 # IMPORT DE LA BASE DE DATOS
-banana = io.ImageCollection('./data/banana/*.png:./data/banana/*.jpg')
-orange = io.ImageCollection('./data/orange/*.png:./data/orange/*.jpg')
-lemon = io.ImageCollection('./data/lemon/*.png:./data/lemon/*.jpg')
+banana = io.ImageCollection('./../data/banana/*.png:./../data/banana/*.jpg')
+orange = io.ImageCollection('./../data/orange/*.png:./../data/orange/*.jpg')
+lemon = io.ImageCollection('./../data/lemon/*.png:./../data/lemon/*.jpg')
 
 # ANALISIS DE LA BASE DE DATOS
 data = []
 i = 0
-
 # Análisis de bananas en base de datos
 iter = 0
 printProgressBar(iter, len(banana), prefix='Loading banana data:',

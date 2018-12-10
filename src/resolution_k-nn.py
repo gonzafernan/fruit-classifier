@@ -6,7 +6,7 @@ from m_function import ft_extract, Elemento
 # IMPORT Y ANALISIS DE IMAGEN A TESTEAR
 test = Elemento()
 test_dir = input("Enter test file name: ")
-image = io.imread('./test/' + test_dir)
+image = io.imread('./../test/' + test_dir)
 
 test.image, test.feature = ft_extract(image)
 
