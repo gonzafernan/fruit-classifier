@@ -22,6 +22,9 @@ notas.txt.save
 data/
 data_back/
 
+test/
+test_back/
+
 m_function.py~
 resolution_k-nn.py~
 data.py~
