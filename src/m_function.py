@@ -78,12 +78,13 @@ def m_hog(image):
 
 
 def ft_extract(image):
-    image = normSize(image)
+    image = normSize(image, size=tuple((400, 300)))
     aux = img2grey(image, mode='cv')
-    # aux = imgClean(aux, mode='cv')
+    aux = imgClean(aux, mode='cv')
 
     # image_fht = haralick(aux)
     image_fhm = hu_moments(aux)
+
     # image_fch = color_histogram(image)
     # image_fhog = m_hog(aux)
 

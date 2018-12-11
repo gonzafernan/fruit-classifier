@@ -29,4 +29,6 @@ m_function.py~
 resolution_k-nn.py~
 data.py~
 test.py~
+src/knn-input.py~
+src/knn-performance.py~
 __pycache__/

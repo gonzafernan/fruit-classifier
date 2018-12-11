@@ -1,9 +1,7 @@
-from matplotlib import pyplot as plt
 import pickle
 from skimage import io
 from m_function import Elemento, printProgressBar, ft_extract
 
-fig, ax = plt.subplots()
 
 # IMPORT DE LA BASE DE DATOS
 banana = io.ImageCollection('./../data/banana/*.png:./../data/banana/*.jpg')
@@ -22,7 +20,6 @@ for fruit in banana:
     data[i].label = 'banana'
     data[i].image, data[i].feature = ft_extract(fruit)
     # print(data[i].feature.shape)
-    ax.plot(data[i].feature[0], data[i].feature[1], 'y')
     i += 1
     iter += 1
     printProgressBar(iter, len(banana), prefix='Loading banana data:',
@@ -37,7 +34,6 @@ for fruit in orange:
     data.append(Elemento())
     data[i].label = 'orange'
     data[i].image, data[i].feature = ft_extract(fruit)
-    ax.plot(data[i].feature[0], data[i].feature[1], 'r')
     i += 1
     iter += 1
     printProgressBar(iter, len(orange), prefix='Loading orange data:',
@@ -52,7 +48,6 @@ for fruit in lemon:
     data.append(Elemento())
     data[i].label = 'lemon'
     data[i].image, data[i].feature = ft_extract(fruit)
-    ax.plot(data[i].feature[0], data[i].feature[1], 'b')
     i += 1
     iter += 1
     printProgressBar(iter, len(lemon), prefix='Loading lemon data:',

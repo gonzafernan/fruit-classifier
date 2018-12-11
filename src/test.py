@@ -1,40 +1,65 @@
-import numpy as np
 import pickle
 from skimage import io
-from m_function import Elemento, ft_extract
+from m_function import Elemento, printProgressBar, ft_extract
 
+banana_test = io.ImageCollection(
+    './../test/banana/*.png:./../test/banana/*.jpg')
+orange_test = io.ImageCollection(
+    './../test/orange/*.png:./../test/orange/*.jpg')
+lemon_test = io.ImageCollection(
+    './../test/lemon/*.png:./../test/lemon/*.jpg')
 
-with open('means.pkl', 'rb') as f:  # Python 3: open(..., 'rb')
-    b_mean, o_mean, l_mean = pickle.load(f)
+test = []
+i = 0
 
-# IMPORT Y ANALISIS DE IMAGEN A TESTEAR
-test = Elemento()
-test_dir = input("Enter test file name: ")
-image = io.imread('./test/' + test_dir)
+# Análisis de bananas en base de datos
+iter = 0
+printProgressBar(iter, len(banana_test), prefix='Loading banana test data:',
+                 suffix='Complete', length=50)
+for fruit in banana_test:
+    test.append(Elemento())
+    test[i].label = 'banana'
+    test[i].image, test[i].feature = ft_extract(fruit)
+    # print(data[i].feature.shape)
+    i += 1
+    iter += 1
+    printProgressBar(iter, len(banana_test),
+                     prefix='Loading banana test data:',
+                     suffix='Complete', length=50)
+print("Banana test data is ready")
 
-test.image, test.feature = ft_extract(image)
+# Análisis de naranjas en base de datos
+iter = 0
+printProgressBar(iter, len(orange_test), prefix='Loading orange test data:',
+                 suffix='Complete', length=50)
+for fruit in orange_test:
+    test.append(Elemento())
+    test[i].label = 'orange'
+    test[i].image, test[i].feature = ft_extract(fruit)
+    i += 1
+    iter += 1
+    printProgressBar(iter, len(orange_test),
+                     prefix='Loading orange test data:',
+                     suffix='Complete', length=50)
+print("Orange test data is ready")
 
-test.label = 'banana'
+# Análisis de limones en la base de datos
+iter = 0
+printProgressBar(iter, len(lemon_test), prefix='Loading lemon test data:',
+                 suffix='Complete', length=50)
+for fruit in lemon_test:
+    test.append(Elemento())
+    test[i].label = 'lemon'
+    test[i].image, test[i].feature = ft_extract(fruit)
+    i += 1
+    iter += 1
+    printProgressBar(iter, len(lemon_test),
+                     prefix='Loading lemon test data:',
+                     suffix='Complete', length=50)
+print("Lemon test data is ready")
 
-# RESULTADO CALCULANDO DISTANCIAS A LOS MEANS FINALES
-sum_b = 0
-sum_o = 0
-sum_l = 0
+f = open('test.pkl', 'wb')
+pickle.dump(test, f)
+f.close()
 
-for i in range(0, len(test.feature)-1):
-    sum_b += np.power(np.abs(test.feature[i] - b_mean[i]), 2)
-    sum_o += np.power(np.abs(test.feature[i] - o_mean[i]), 2)
-    sum_l += np.power(np.abs(test.feature[i] - l_mean[i]), 2)
-
-dist_b = np.sqrt(sum_b)
-dist_o = np.sqrt(sum_o)
-dist_l = np.sqrt(sum_l)
-
-if ((dist_b <= dist_o) and (dist_b <= dist_l)):
-    test.label = 'banana'
-if ((dist_o <= dist_b) and (dist_o <= dist_l)):
-    test_label = 'orange'
-if ((dist_l <= dist_b) and (dist_l <= dist_o)):
-    test.label = 'lemon'
-
-print(test.label)
+print("Test data analysis completed")
