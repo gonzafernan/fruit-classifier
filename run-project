@@ -1,0 +1,10 @@
+#!/bin/bash
+cd src
+python data.py
+python test.py
+python knn-performance.py
+python kmeans-train.py
+python kmeans-performance.py
+rm data.pkl
+rm test.pkl
+rm means.pkl

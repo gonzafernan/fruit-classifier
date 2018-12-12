@@ -31,4 +31,6 @@ data.py~
 test.py~
 src/knn-input.py~
 src/knn-performance.py~
+src/kmeans-train.py~
+src/kmeans-performance.py~
 __pycache__/
