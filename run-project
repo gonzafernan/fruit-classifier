@@ -1,8 +1,7 @@
 #!/bin/bash
 cd src
-if [ ! -f ./data.pkl ]; then
+if [ ! -f ./dataset.pkl ]; then
     echo "Data not found. Feature extraction from data."
-    python data.py
+    python data.py dataset
 fi
-python knn-input.py
-rm data.pkl
+python knn-input.py dataset $1

@@ -1,12 +1,18 @@
+import sys
+
 import pickle
 from skimage import io
 from m_function import Elemento, printProgressBar, ft_extract
 
+dir = sys.argv[1]
 
 # IMPORT DE LA BASE DE DATOS
-banana = io.ImageCollection('./../data/banana/*.png:./../data/banana/*.jpg')
-orange = io.ImageCollection('./../data/orange/*.png:./../data/orange/*.jpg')
-lemon = io.ImageCollection('./../data/lemon/*.png:./../data/lemon/*.jpg')
+banana = io.ImageCollection(
+    './../' + dir + '/banana/*.png:./../' + dir + '/banana/*.jpg')
+orange = io.ImageCollection(
+    './../' + dir + '/orange/*.png:./../' + dir + '/orange/*.jpg')
+lemon = io.ImageCollection(
+    './../' + dir + '/lemon/*.png:./../' + dir + '/lemon/*.jpg')
 
 # ANALISIS DE LA BASE DE DATOS
 data = []
@@ -54,7 +60,7 @@ for fruit in lemon:
                      suffix='Complete', length=50)
 print("Lemon data is ready")
 
-f = open('data.pkl', 'wb')
+f = open(dir + '.pkl', 'wb')
 pickle.dump(data, f)
 f.close()
 print("Data analysis completed")

@@ -1,9 +1,13 @@
+import sys
+
 import numpy as np
 import pickle
 from skimage import io
 from m_function import Elemento, ft_extract
 
-f = open('data.pkl', 'rb')
+dir = sys.argv[1]
+
+f = open(dir + '.pkl', 'rb')
 data = pickle.load(f)
 f.close()
 
@@ -12,8 +16,7 @@ k = 10
 
 # IMPORT Y ANALISIS DE IMAGEN A CLASIFICAR
 fruit = Elemento()
-fruit_dir = input("Enter image file direction: ")
-image = io.imread(fruit_dir)
+image = io.imread(sys.argv[2])
 
 fruit.image, fruit.feature = ft_extract(image)
 

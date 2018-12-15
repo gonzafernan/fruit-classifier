@@ -7,7 +7,6 @@ informe.dvi
 informe.log
 informe.run.xml
 informe.synctex.gz
-informe.tex
 informe.toc
 
 informe.out
@@ -21,6 +20,12 @@ notas.txt.save
 
 data/
 data_back/
+dataset/
+
+src/data.pkl
+src/test.pkl
+src/means.pkl
+src/dataset.pkl
 
 test/
 test_back/
