@@ -1,10 +1,8 @@
 #!/bin/bash
 cd src
-python data.py
-python test.py
-python knn-performance.py
-python kmeans-train.py
-python kmeans-performance.py
+if [ ! -f ./data.pkl ]; then
+    echo "Data not found. Feature extraction from data."
+    python data.py
+fi
+python knn-input.py
 rm data.pkl
-rm test.pkl
-rm means.pkl

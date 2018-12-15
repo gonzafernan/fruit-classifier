@@ -39,16 +39,7 @@ while (swap):
 
 eval = [0, 0, 0]
 
-if (data[0].label == 'banana'):
-    eval[0] += 30
-
-if (data[0].label == 'orange'):
-    eval[1] += 30
-
-if (data[0].label == 'lemon'):
-    eval[2] += 30
-
-for i in range(1, k):
+for i in range(0, k):
 
     if (data[i].label == 'banana'):
         eval[0] += 10
