@@ -198,7 +198,7 @@ El resultado del proceso de segmentación, es una imagen binaria que contendría
 \centering
 \includegraphics[width=0.7\textwidth]{imgs/resultado-03.png}
 \caption{Resultado obtenido en \textit{Jupyter notebook} \href{./03-segmentacion}{03-segmentacion}.}
-\label{resultado-03	}
+\label{resultado-03}
 \end{figure}
 
 \subsection{Base de datos}
@@ -281,9 +281,24 @@ El código de todo lo previamente explicado se encuentra expuesto junto al anál
 El código final obtenido posterior a la etapa de diseño se encuentra en la carpeta \href{./src/}{src} del proyecto. Consiste en un conjunto de programas \textit{python} que ejecutan las diferentes etapas. Sin embargo, para simplicidad de ejecución, se escribió dos \textit{scripts} en \textit{bash} nombrados \href{./run-test}{run-test} y \href{./run-project}{run-project}, que ejecutan los programas en \textit{python} en la secuencia correcta junto contras acciones necesarias para una ejecución limpia.
 
 \begin{itemize}
-\item \textbf{run-test:} Ejecutar el \textit{script} para entrenar la base de datos y proceder con el testeo del proyecto. Una barra de progreso provee de forma gráfica los resultados finales obtenidos. Se ejecutan ambos algoritmos \textit{K-means} y \textit{K-nn} (para este último es necesario especificar el K a utilizar).
-\item \textbf{run-project:} Ejecutar el \textit{script} para clasificar una determinada imagen, la ruta donde se encuentra esta imagen es un parámetro del programa.
+\item \textbf{run-test:} Ejecutar el \textit{script} para entrenar la base de datos y proceder con el testeo del proyecto. Una barra de progreso provee de forma gráfica los resultados finales obtenidos. Se ejecutan ambos algoritmos \textit{K-means} y \textit{K-nn} (para este último es necesario especificar el K a utilizar). El comando es, desde la carpeta principal del proyecto donde se encuentra \textit{run-test}, como el que sigue:
+\begin{verbatim}
+./run-test
+\end{verbatim}
+\item \textbf{run-project:} Ejecutar el \textit{script} para clasificar una determinada imagen, la ruta donde se encuentra esta imagen es un parámetro del programa. El comando es, desde la carpeta principal del proyecto donde se encuentra \textit{run-project}, como el que sigue:
+\begin{verbatim}
+./run-project <ruta de la imagen a clasificar>
+\end{verbatim}
 \end{itemize}
+
+En la figura se expone la estructura de carpetas del proyecto.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.4]{imgs/folders-structure.png}
+\caption{Estructura de carpetas del proyecto.}
+\label{folders}
+\end{figure}
 
 % EJEMPLO DE APLICACIÓN
 \section{Ejemplo de aplicación}
