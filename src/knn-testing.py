@@ -2,7 +2,6 @@ import sys
 
 import numpy as np
 import pickle
-from m_function import printProgressBar
 
 
 f1 = open('data.pkl', 'rb')
@@ -16,10 +15,10 @@ f2.close()
 k = sys.argv[1]
 k = int(k)
 
+b_ans = 0
+o_ans = 0
+l_ans = 0
 correct = 0
-
-printProgressBar(correct, len(test), prefix='Correct predictions:',
-                 suffix='Total', length=50)
 
 for t in test:
 
@@ -73,15 +72,19 @@ for t in test:
 
     if (aux == eval[0]):
         label = 'banana'
-        
+        if (t.label == label):
+            b_ans += 1
     if (aux == eval[1]):
         label = 'orange'
-        
+        if (t.label == label):
+            o_ans += 1
     if (aux == eval[2]):
         label = 'lemon'
+        if (t.label == label):
+            l_ans += 1
 
     if (t.label == label):
         correct += 1
-    printProgressBar(correct, len(test),
-                     prefix='Correct predictions:',
-                     suffix='Total', length=50)
+
+print(correct)
+print(b_ans, o_ans, l_ans)

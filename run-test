@@ -1,10 +1,29 @@
 #!/bin/bash
 cd src
-python data.py
+
+if [ -f ./data.pkl ]; then
+    echo "Old data found. Removing data.pkl."
+    rm data.pkl
+fi
+echo "Data analysis..."
+python data.py data
+
+if [ -f ./test.pkl ]; then
+    echo "Old test data found. Removing test.pkl."
+    rm test.pkl
+fi
+echo "Test data analysis..."
 python test.py
-python knn-performance.py
+
+echo "Running K-nn algorthm..."
+python knn-performance.py 10
+
+echo "Training K-means algorithm..."
 python kmeans-train.py
+
+echo "Running K-means algorithm..."
 python kmeans-performance.py
+
 rm data.pkl
 rm test.pkl
 rm means.pkl

@@ -137,10 +137,9 @@ Las librerías que se utilizaron para resolver el problema propuesto son \textit
 
 Para exponer el código y la investigación realizada de una forma clara, sensilla y reproducible, se utilizó \href{https://jupyter.org/}{Jupyter}. Jupyter es una aplicación web open-source que permite crear y compartir documentos con bloques de código, ecuaciones, gráficos y texto descriptivo.
 
-\subsection{Etapas de la implementación}
 La descripción más específica y técnica de la implementación se encuentra en los diferentes \textit{Jupyter notebook} del proyecto. Para acceder a ellos, ir al link provisto correspondiente.
 
-\subsubsection{Representación adecuada de la información}
+\subsection{Representación adecuada de la información}
 \textit{Jupyter notebook}: \href{./01-representacion.ipynb}{01-representacion}. En el caso de no disponer del proyecto completo: \href{https://github.com/FernandezGFG/fruit-classifier/blob/master/01-representacion.ipynb}{link de GitHub}.
 
 Al analizar la conversión a escala de grises se utiliza la fórmula:
@@ -160,7 +159,7 @@ El resultado obtenido en esta etapa es la imagen en escala de grises en un tama�
 \label{resultado-01}
 \end{figure}
 
-\subsubsection{Filtrado de imágenes}
+\subsection{Filtrado de imágenes}
 \textit{Jupyter notebook}: \href{./02-filtracion.ipynb}{02-filtracion}. En el caso de no disponer del proyecto completo: \href{https://github.com/FernandezGFG/fruit-classifier/blob/master/02-filtracion.ipynb}{link de GitHub}.
 
 De \textit{Wikipedia, la Enciclopedia Libre}: ``Es el conjunto de técnicas englobadas dentro del preprocesamiento de imágenes cuyo objetivo fundamental es obtener, a partir de una imagen origen, otra final cuyo resultado sea más adecuado para una aplicación específica mejorando ciertas características de la misma que posibilite efectuar operaciones del procesado sobre ella. Los principales objetivos que se persiguen con la aplicación de filtros son:
@@ -190,7 +189,7 @@ Los resultados obtenidos en esta etapa es la imagen en escala de grises (o no) e
 \label{resultado-02}
 \end{figure}
 
-\subsubsection{Segmentado de imágenes}
+\subsection{Segmentado de imágenes}
 \textit{Jupyter notebook}: \href{./03-segmentacion.ipynb}{03-segmentacion}. En el caso de no disponer del proyecto completo: \href{https://github.com/FernandezGFG/fruit-classifier/blob/master/03-segmentacion.ipynb}{link de GitHub}.
 
 El resultado del proceso de segmentación, es una imagen binaria que contendría los bordes del objeto a analizar. Esto puede utilizarse o no, según el método de extracción de características que se utilice. Se puede observar un ejemplo en la figura \ref{resultado-03}. El proceso se puede hacer por medio de la librería \textit{skimage} o también con la librería \textit{OpenCV} (más específicamente \textit{cv2}).
@@ -202,7 +201,25 @@ El resultado del proceso de segmentación, es una imagen binaria que contendría
 \label{resultado-03	}
 \end{figure}
 
-\subsubsection{Extracción de características}
+\subsection{Base de datos}
+A la hora de obtener resultados se utilizó dos bases de datos: La primera es una base de datos proveída por Kaggle: \href{https://www.kaggle.com/moltean/fruits}{Fruit 360 Kaggle dataset}. \href{https://www.kaggle.com}{Kaggle} es una comunidad online de \textit{Data Science} y \textit{Machine Learning} de \textit{Google, Inc.}. Permite a los usuarios encontrar y publicar \textit{data sets}, trabajar con otras personas expertas en el tema e inclusive participar en competencias y desafíos relacionados con el análisis de datos. El problema de éste \textit{data set}, es que las frutas están diseñadas con herramientas de software, es decir, no son fotografías de frutas reales. Ésto hace que la diferencia con una fotografía tomada por el usuario sea muy grande. Sin embargo, fue de mucha utilidad para una primera observación de resultados y confirmar que las decisiones tomadas hasta el momento son acertadas. Luego de trabajar con este \textit{data set} de Kaggle, se construyo uno propio a partir de fotografías de frutas reales comprobando esta gran diferencia de resultados. En el cuadro \ref{dataset}, puede observarse la cantidad de imágenes utilizada.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{\textbf{}} & \multicolumn{3}{c|}{\textbf{Train}} & \multicolumn{3}{c|}{\textbf{Test}} &  \\ \cline{2-8} 
+ & \textbf{Banana} & \textbf{Naranja} & \textbf{Limón} & \textbf{Banana} & \textbf{Naranja} & \textbf{Limón} & \textbf{Total} \\ \hline
+\textbf{Kaggle} & 490 & 479 & 492 & 166 & 160 & 164 & 1951 \\ \hline
+\textbf{Personal} & 132 & 138 & 130 & 131 & 138 & 130 & 799 \\ \hline
+\end{tabular}
+\caption{Cantidad de imágenes en los diferentes \textit{data sets}.}
+\label{dataset}
+\end{table}
+
+Para las imágenes de la base de datos propia, se tomo las fotografías de las diferentes frutas individuales, sobre una hoja de papel blanca, con \textit{flash} y buena iluminación del ambiente.
+
+\subsection{Extracción de características}
 \textit{Jupyter notebook}: \href{./04-extraccion.ipynb}{04-extraccion}. En el caso de no disponer del proyecto completo: \href{https://github.com/FernandezGFG/fruit-classifier/blob/master/04-extraccion.ipynb}{link de GitHub}.
 
 Para la extracción de características se utilizaron diferentes métodos:
@@ -245,12 +262,12 @@ Para la extracción de características se utilizaron diferentes métodos:
 
 \end{itemize}
 
-\subsubsection{Implementación de los algoritmos de clasificación}
+\subsection{Implementación de los algoritmos de clasificación}
 \textit{Jupyter notebook}: \href{./05-algoritmos.ipynb}{05-algoritmos}. En el caso de no disponer del proyecto completo: \href{https://github.com/FernandezGFG/fruit-classifier/blob/master/05-algoritmos.ipynb}{link de GitHub}.
 
 En esta etapa se implementan los dos algoritmos de clasificación a utilizar: \textbf{K-nn (K-nearest neighbors)} y \textbf{K-means}. Su descripción técnica se encuentra detalladamente en el \textit{jupyter notebook} correspondiente.
 
-\subsubsection{Clasificación de la información}
+\subsection{Clasificación de la información}
 \textit{Jupyter notebook}: \href{./06-clasificacion.ipynb}{06-clasificacion}. En el caso de no disponer del proyecto completo: \href{https://github.com/FernandezGFG/fruit-classifier/blob/master/06-clasificacion.ipynb}{link de GitHub}.
 
 En este último paso, a diferencia de la implementación inicial, no se trabaja con una imagen ejemplo, sino con toda la base de datos. Se divide toda la información en dos subconjuntos, uno para el entrenamiento de los algoritmos y otro de testeo para calificar su desempeño.
@@ -275,9 +292,7 @@ El código final obtenido posterior a la etapa de diseño se encuentra en la car
 \section{Resultados}
 Los resultados obtenidos son en referencia a la base de datos utilizada. Como se mencionó previamente, se divide en dos subconjuntos de imágenes: uno de entrenamiento y otro de testeo. Los resultados se dan en \textbf{porcentaje de aciertos en predicciones del conjunto de testeo}.
 
-El objetivo del conjunto de testeo es dar una noción de que métodos de extracción de características, filtros y segmentados, dan mejores resultados y tomar una decisión en el diseño final del agente en base a ello.
-
-A la hora de obtener resultados se utilizó dos bases de datos: La primera es una base de datos proveída por Kaggle: \href{https://www.kaggle.com/moltean/fruits}{Fruit 360 Kaggle dataset}. \href{https://www.kaggle.com}{Kaggle} es una comunidad online de \textit{Data Science} y \textit{Machine Learning} de \textit{Google, Inc.}. Permite a los usuarios encontrar y publicar \textit{data sets}, trabajar con otras personas expertas en el tema e inclusive participar en competencias y desafíos relacionados con el análisis de datos. El problema de éste \textit{data set}, es que las frutas están diseñadas con herramientas de software, es decir, no son fotografías de frutas reales. Ésto hace que la diferencia con una fotografía tomada por el usuario sea muy grande. Sin embargo, fue de mucha utilidad para una primera observación de resultados y confirmar que las decisiones tomadas hasta el momento son acertadas. Luego de trabajar con este \textit{data set} de Kaggle, se construyo uno propio a partir de fotografías de frutas reales comprobando esta gran diferencia de resultados. 
+El objetivo del conjunto de testeo es dar una noción de que métodos de extracción de características, filtros y segmentados, dan mejores resultados y tomar una decisión en el diseño final del agente en base a ello. 
 
 En el cuadro \ref{resultado-knn} se exponen los resultados obtenidos con los diferentes \textit{data sets} para el algoritmo \textit{K-nn}.
 

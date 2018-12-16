@@ -94,7 +94,7 @@ while (iter < 20):
     # print(len(banana_data), len(orange_data), len(lemon_data))
 
     # CONVERGENCIA Y CONDICIÓN DE SALIDA
-    print(len(banana_data), len(orange_data), len(lemon_data))
+    # print(len(banana_data), len(orange_data), len(lemon_data))
 
     if (b_mean == b_len):
         b_flag = False

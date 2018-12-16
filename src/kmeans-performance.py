@@ -55,3 +55,4 @@ for t in test:
     printProgressBar(correct, len(test),
                      prefix='Corrects prediction:',
                      suffix='Total', length=50)
+print("\n")

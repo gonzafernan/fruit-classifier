@@ -38,4 +38,7 @@ src/knn-input.py~
 src/knn-performance.py~
 src/kmeans-train.py~
 src/kmeans-performance.py~
+src/knn-testing.py~
+run-test~
+
 __pycache__/

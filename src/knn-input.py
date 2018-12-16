@@ -67,3 +67,5 @@ if (aux == eval[2]):
     fruit.label = 'lemon'
 
 print(fruit.label)
+print("%d banana" % eval[0], "%d orange" % eval[1],
+      "%d lemon" % eval[2])
