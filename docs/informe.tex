@@ -24,6 +24,7 @@
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \author{Fernández, Gonzalo Gabriel}
 \title{Trabajo Final Inteligencia Artificial I – año 2018: Visión Artifical}
+
 \begin{document}
 
 % TÍTULO
@@ -33,7 +34,7 @@
 \begin{abstract}
 El presente trabajo sobre visión artificial fue realizado como trabajo final de la cátedra Inteligencia Artificial I, de la Facultad de Ingeniería de la Universidad Nacional de Cuyo.
 
-Consiste en el diseño e implementación de un agente capaz de clasificar frutas en base a fotografías. Se realiza un breve estudio teórico del agente. En la implementación se analiza el procesado de imágenes en sus diferentes etápas: filtrado, segmentado y extracción de características. Para clasificar las imágenes se utilizan algoritmos de aprendizaje K-means y K-nn, y se hace un estudio de desempeño comparativo entre los dos algoritmos. El lenguaje de programación utilizado a lo largo del proyecto es Python.
+Consiste en el diseño e implementación de un agente capaz de clasificar frutas, bananas, naranjas y limones, en base a fotografías. Se realiza un breve estudio teórico del agente. En la implementación se analiza el procesado de imágenes en sus diferentes etapas: filtrado, segmentado y extracción de características. Para clasificar las imágenes se utilizan algoritmos de aprendizaje K-means y K-nn, y se hace un estudio de desempeño comparativo entre los dos algoritmos. El lenguaje de programación utilizado a lo largo del proyecto es Python.
 
 Como objetivo final se desea obtener un agente que en un entorno con condiciones controladas se desempeñe con un rendimiento por encima de las exigencias.
 \end{abstract}
@@ -42,7 +43,7 @@ Como objetivo final se desea obtener un agente que en un entorno con condiciones
 \section{Introducción}
 
 \subsection{Visión Artificial\label{vision}}
-``\textit{La \textbf{visión artificial} o visión por ordenador es una disciplina científica que incluye métodos para adquirir, procesar, analizar y comprender las imágenes del mundo real con el fin de producir información numérica o simbólica para que puedan ser tratados por un ordenador.}'' de Wikipedia, la Enciclopedia Libre.
+``\textit{La \textbf{visión artificial} o visión por ordenador es una disciplina científica que incluye métodos para adquirir, procesar, analizar y comprender las imágenes del mundo real con el fin de producir información numérica o simbólica para que puedan ser tratados por un ordenador.}'' Wikipedia, la Enciclopedia Libre.
 ``\textit{En la visión por ordenador, intentamos describir el mundo que vemos en una o más imágenes e intentamos reconstruir sus propiedades, tal como la forma, iluminación y distribuciones de color.}'' \textcite{szeliski}
 
 \subsection{Problema a resolver}
@@ -82,7 +83,7 @@ El actuador del agente es sencillamente el medio por el que éste se comunicará
 
 \item \textbf{Sensores:}
 
-El sensor del agente es la cámara fotográfica que tomará la imagen de la fruta. Esto es así, si se considera la cámara fotográfica como parte del agente. Sin embargo, la imagen puede provenir de otras fuentes exteriores que no se consideren parte del agente. En este caso, podría considerarse como sensor las herramientas (librerías y sus funciones) que nos permiten procesar la imagen en el formato que se reciba (\textit{PNG, JPEG}), en un formato de información con la que el agente puede operar.
+El sensor del agente es la cámara fotográfica que tomará la imagen de la fruta. Esto es así, si se considera la cámara fotográfica como parte del agente. Sin embargo, la imagen puede provenir de otras fuentes externas que no se consideren parte del agente. En este caso, podría considerarse como sensor las herramientas (librerías y sus funciones) que nos permiten procesar la imagen en el formato que se reciba (\textit{PNG, JPEG}), en un formato de información con la que el agente puede operar.
 
 \end{itemize}
  
@@ -127,10 +128,10 @@ En la figura \ref{plan-parcial}, se expone el \textbf{plan de orden parcial} rea
 \label{plan-parcial}
 \end{figure}
 
-Si se observa la figura \ref{plan-parcial}, las flechas rojas de trazos indican el \textbf{camino crítico} encontrado. Éste camino crítico está dado básicamente por la implementación del código.
+Si se observa la figura \ref{plan-parcial}, las flechas rojas de trazos indican el \textbf{camino crítico}, en el cuál se encuentran las tareas sin tiempo de relajación, por lo que deben realizarse sin demoras. Éste camino crítico está dado básicamente por la implementación del código.
 
 \section{Diseño del agente}
-Se inicia el proyecto eligiendo con que lenguaje de programación se encarará. Se decide utilizar \textbf{\textit{Python}}, por ser tan popular en las disciplinas relacionadas con inteligencia artificial. Entre las opciones, además de \textit{Python} se contempló utilizar \textit{Matlab} o \textit{R}.
+Se inicia el proyecto eligiendo con qué lenguaje de programación se encarará. Se decide utilizar \textbf{\textit{Python}}, por ser tan popular en las disciplinas relacionadas con inteligencia artificial. Entre las opciones, además de \textit{Python} se consideró utilizar \textit{Matlab} o \textit{R}.
 
 Siendo la primer experiencia con análisis de imágenes, la primer interrogante que surge es cómo obtener de una imagen cruda de la fruta, un vector representativo de todas sus características que sea de utilidad como entrada a los algoritmos K-means y K-nn.
 
@@ -150,7 +151,7 @@ Las librerías que se utilizaron para resolver el problema propuesto son \textit
 
 \href{https://opencv.org/}{OpenCV} (Open Source Computer Vision Library), es una librería de funciones para \textit{C++}, \textit{Python} y otros lenguajes, donde su propósito principal es la visión artificial en tiempo real.
 
-Para exponer el código y la investigación realizada de una forma clara, sensilla y reproducible, se utilizó \href{https://jupyter.org/}{Jupyter}. Jupyter es una aplicación web open-source que permite crear y compartir documentos con bloques de código, ecuaciones, gráficos y texto descriptivo.
+Para exponer el código y la investigación realizada de una forma clara, sensilla y reproducible, se utilizó \href{https://jupyter.org/}{Jupyter}. Jupyter es una aplicación web open-source que permite crear y compartir documentos con bloques de código embebido, ecuaciones, gráficos y texto descriptivo.
 
 La descripción más específica y técnica de la implementación se encuentra en los diferentes \textit{Jupyter notebook} del proyecto. Para acceder a ellos, ir al link provisto correspondiente.
 
@@ -192,7 +193,7 @@ En este trabajo se estudiaron los siguientes filtros:
 \item \textit{Gaussian}: Altamente recomendado y utilizado ampliamente para eliminar ruido, reducir detalle de las fotografías, y como una etapa de preprocesamiento de imágenes.
 \item \textit{Diferencial}: Se utiliza para obtener los cambios en la intensidad de la imagen. El resultado es el gradiente, en la dirección que se realizó el filtro, de la intensidad de la imagen. Es un primer paso al detectar bordes de la imagen.
 \item \textit{Sobel}: Es un filtro muy utilizado para la detección de bordes. Es una aproximación al gradiente de la imagen. En el trabajo se realiza una comparación entre el filtro \textit{Sobel} y la composición de dos filtros \textit{diferenciales} ortogonales, obteniendo resultados similares. En la librería \textit{OpenCV} a esta composición se le denomina filtro \textit{Laplacian}, por estar relacionado con la ecuación de Laplace.
-\item \textit{Median}: Este filtro a diferencia de los anteriores es no lineal. Se utiliza de forma similar que el filtro \textit{Gaussian}, para reducir ruido en las imágenes.
+\item \textit{Median}: Este filtro a diferencia de los anteriores es no lineal. Se utiliza de una forma similar al filtro \textit{Gaussian}, para reducir ruido en las imágenes.
 \end{itemize}
 
 Los resultados obtenidos en esta etapa es la imagen en escala de grises (o no) en un tamaño normalizado, filtrada por \textit{Gaussian} y/o \textit{Sobel} dependiendo la necesidad, a partir de la fotografía original recibida por el agente. Se puede observar un ejemplo en la figura \ref{resultado-02}. El proceso se puede hacer por medio de la librería \textit{skimage} o también con la librería \textit{OpenCV} (más específicamente \textit{cv2}).
@@ -239,11 +240,11 @@ Para las imágenes de la base de datos propia, se tomo las fotografías de las d
 
 Para la extracción de características se utilizaron diferentes métodos:
 \begin{itemize}
-\item \textbf{Histogram of oriented gradients (HOG):} Es utilizado en visión por computador y procesado de imágenes con el propósito de detección de objetos. La técnica cuenta la ocurrencia de orientaciones del gradiente en porciones localizadas de la imagen. Este método es similar a los histogramas de orientación de bordes, transformación de características invariante en escala, y contextos de forma, pero se diferencia en que se calcula una cuadrícula densa de celdas espaciadas uniformemente y utiliza normalización de contraste local superpuesto para una mayor precisión. Resultados obtenidos (reducidos a media y desviación estándar) en la figura \ref{hog}.
+\item \textbf{Histogram of oriented gradients (HOG):} Es utilizado en visión por computador y procesado de imágenes con el propósito de detección de objetos. Resultados obtenidos (reducidos a media y desviación estándar) en la figura \ref{hog}.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.6\textwidth]{imgs/resultado-04_hog.png}
+\includegraphics[width=0.55\textwidth]{imgs/resultado-04_hog.png}
 \caption{Histogram of Oriented Gradients (HOG) para la base de datos, reducida a media y desviación estándar.}
 \label{hog}
 \end{figure}
@@ -252,7 +253,7 @@ Para la extracción de características se utilizaron diferentes métodos:
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.6\textwidth]{imgs/resultado-04_hm.png}
+\includegraphics[width=0.55\textwidth]{imgs/resultado-04_hm.png}
 \caption{Hu Moments para la base de datos, reducida a media y desviación estándar.}
 \label{hu_moments}
 \end{figure}
@@ -261,7 +262,7 @@ Para la extracción de características se utilizaron diferentes métodos:
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.6\textwidth]{imgs/resultado-04_ht.png}
+\includegraphics[width=0.55\textwidth]{imgs/resultado-04_ht.png}
 \caption{Haralick Textures para la base de datos, reducida a media y desviación estándar.}
 \label{haralick_textures}
 \end{figure}
@@ -270,7 +271,7 @@ Para la extracción de características se utilizaron diferentes métodos:
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.6\textwidth]{imgs/resultado-04_ch.png}
+\includegraphics[width=0.55\textwidth]{imgs/resultado-04_ch.png}
 \caption{Color Histogram para la base de datos, reducida a media y desviación estándar.}
 \label{color_histogram}
 \end{figure}
@@ -287,16 +288,16 @@ En esta etapa se implementan los dos algoritmos de clasificación a utilizar: \t
 
 En este último paso, a diferencia de la implementación inicial, no se trabaja con una imagen ejemplo, sino con toda la base de datos. Se divide toda la información en dos subconjuntos, uno para el entrenamiento de los algoritmos y otro de testeo para calificar su desempeño.
 
-Se ejecuto numeradas veces con el objetivo de comparar resultados utilizando o no filtros, segmentación y diferentes métodos de extracción de características. Los resultados obtenidos se exponen en la sección \ref{resultados}.
+Se ejecuto numeradas veces con el objetivo de comparar resultados utilizando filtros, segmentación y diferentes métodos de extracción de características. Los resultados obtenidos se exponen en la sección \ref{resultados}.
 
 % CÓDIGO
 \section{Código}
 El código de todo lo previamente explicado se encuentra expuesto junto al análisis teórico, en los diferentes \textit{Jupyter notebook}.
 
-El código final obtenido posterior a la etapa de diseño se encuentra en la carpeta \href{./src/}{src} del proyecto. Consiste en un conjunto de programas \textit{python} que ejecutan las diferentes etapas. Sin embargo, para simplicidad de ejecución, se escribió dos \textit{scripts} en \textit{bash} nombrados \href{./run-test}{run-test} y \href{./run-project}{run-project}, que ejecutan los programas en \textit{python} en la secuencia correcta junto contras acciones necesarias para una ejecución limpia.
+El código final obtenido posterior a la etapa de diseño se encuentra en la carpeta \href{./src/}{src} del proyecto. Consiste en un conjunto de programas \textit{python} que ejecutan las diferentes etapas. Sin embargo, para simplicidad de ejecución, se escribió dos \textit{scripts} en \textit{bash} nombrados \href{./run-test}{run-test} y \href{./run-project}{run-project}, que ejecutan los programas en \textit{python} en la secuencia correcta junto con otras acciones necesarias para una ejecución limpia.
 
 \begin{itemize}
-\item \textbf{run-test:} Ejecutar el \textit{script} para entrenar la base de datos y proceder con el testeo del proyecto. Una barra de progreso provee de forma gráfica los resultados finales obtenidos. Se ejecutan ambos algoritmos \textit{K-means} y \textit{K-nn} (para este último es necesario especificar el K a utilizar). El comando es, desde la carpeta principal del proyecto donde se encuentra \textit{run-test}, como el que sigue:
+\item \textbf{run-test:} Ejecutar el \textit{script} para entrenar la base de datos y proceder con el testeo del proyecto. Una barra de progreso provee de forma gráfica los resultados finales obtenidos. Se ejecutan ambos algoritmos \textit{K-means} y \textit{K-nn}. El comando es, desde la carpeta principal del proyecto donde se encuentra \textit{run-test}, como el que sigue:
 \begin{verbatim}
 ./run-test
 \end{verbatim}
@@ -314,6 +315,8 @@ En la figura se expone la estructura de carpetas del proyecto.
 \caption{Estructura de carpetas del proyecto.}
 \label{folders}
 \end{figure}
+
+Las \textbf{dependencias}, es decir, las librerías necesarias de \textit{Python} para poder ejecutar el proyecto son: \textit{Numpy}, \textit{Skimage}, \textit{cv2} (OpenCV), \textit{Mahotas}, \textit{Pickle}, \textit{sys} y \textit{random}.
 
 % RESULTADOS
 \section{Resultados\label{resultados}}
@@ -394,11 +397,11 @@ Como puede observarse, los valores más altos se encuentran entre $K=20$ y $K=30
 
 % EJEMPLO DE APLICACIÓN
 \section{Ejemplo de aplicación}
-
+A continuación, se muestra como ejemplo la ejecución del proyecto para clasificar una fruta de cada clase. Las imágenes a clasificar se exponen en la figura.
 
 % CONCLUSIONES
 \section{Conclusiones}
-Con todo lo estudiado, puede concluirse que el algoritmo a implementar es el \textbf{K-nn}, con \textbf{K igual a 24}; utilizando \textbf{filtro Gaussian} con \textbf{$\sigma$ igual a 1} para la eliminación de ruido y \textbf{filtro Sobel} para la detección de bordes; y así luego utilizar \textbf{Hu Moments} para la extracción de características.
+Con todo lo estudiado, puede concluirse que el algoritmo a implementar es el \textbf{K-nn}, con \textbf{K igual a 24}; utilizando \textbf{filtro Gaussian} con \textbf{$\sigma$ igual a 1} para la eliminación de ruido y \textbf{filtro Sobel} para la detección de bordes; y así luego utilizar las \textbf{componentes 0, 1 y 3} del vector obtenido con \textbf{Hu Moments} para la extracción de características.
 
 El algoritmo \textit{K-nn} dio mejores resultados, sin embargo una de sus mayores desventajas al compararlo con el algoritmo \textit{K-means} es el \textbf{tiempo de ejecución}. Si recordamos el algoritmo \textit{K-nn}, compara el vector de características de la imagen a clasificar con el vector de características de cada una de las imágenes en el \textit{data set}, mientras que \textit{K-means} solo calcula la distancia a los tres diferentes means a la hora de realizar la clasificación, separando el proceso de clasificación del de entrenamiento. Por lo tanto, si la velocidad necesaria a la hora de clasificar una fruta es determinante, y el algoritmo \textit{K-nn} no cumple con este requerimiento, será necesario seguir estudiando el algoritmo \textit{K-means} y todas la formas posibles de optimizarlo.
 
