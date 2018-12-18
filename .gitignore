@@ -8,6 +8,9 @@ informe.log
 informe.run.xml
 informe.synctex.gz
 informe.toc
+informe.lof
+informe.lot
+
 
 informe.out
 
@@ -40,5 +43,7 @@ src/kmeans-train.py~
 src/kmeans-performance.py~
 src/knn-testing.py~
 run-test~
+run-kmeans~
+kmeans-input.py~
 
 __pycache__/

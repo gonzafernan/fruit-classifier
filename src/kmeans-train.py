@@ -1,8 +1,12 @@
+import sys
+
 import numpy as np
 import random
 import pickle
 
-f = open('data.pkl', 'rb')
+dir = sys.argv[1]
+
+f = open(dir + '.pkl', 'rb')
 data = pickle.load(f)
 f.close()
 
@@ -97,7 +101,7 @@ while (iter < 20):
 
     l_mean[0] = sum_l[0] / len(lemon_data)
     l_mean[1] = sum_l[1] / len(lemon_data)
-    l_mean[2] = sum_l[1] / len(lemon_data)
+    l_mean[2] = sum_l[2] / len(lemon_data)
 
     # print(len(banana_data), len(orange_data), len(lemon_data))
 

@@ -1,0 +1,14 @@
+#!/bin/bash
+cd src
+
+if [ ! -f ./dataset.pkl ]; then
+    echo "Data not found. Feature extraction from data."
+    python data.py dataset
+fi
+
+if [ ! -f ./means.pkl ]; then
+    echo "Means not found. Computing means."
+    python kmeans-train.py dataset
+fi
+
+python kmeans-input.py $1

@@ -10,6 +10,7 @@
 
 %GRAFICOS
 \usepackage{graphicx}
+\usepackage{subcaption}
 
 % TABLAS
 \usepackage{multirow}
@@ -292,7 +293,21 @@ Se ejecuto numeradas veces con el objetivo de comparar resultados utilizando fil
 
 % CÓDIGO
 \section{Código}
-El código de todo lo previamente explicado se encuentra expuesto junto al análisis teórico, en los diferentes \textit{Jupyter notebook}.
+El código de todo lo previamente explicado se encuentra expuesto junto al análisis teórico, en los diferentes \textit{Jupyter notebook}. En las figuras \ref{flujo-knn} y \ref{flujo-kmeans}, se muestra en diagrama de flujo las etapas generales de los algoritmos \textit{K-nn} y \textit{K-means}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{imgs/flujo-knn.png}
+\caption{Diagrama de flujo del algoritmo \textit{K-nn}.}
+\label{flujo-knn}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{imgs/flujo-kmeans.png}
+\caption{Diagrama de flujo del algoritmo \textit{K-means}.}
+\label{flujo-kmeans}
+\end{figure}
 
 El código final obtenido posterior a la etapa de diseño se encuentra en la carpeta \href{./src/}{src} del proyecto. Consiste en un conjunto de programas \textit{python} que ejecutan las diferentes etapas. Sin embargo, para simplicidad de ejecución, se escribió dos \textit{scripts} en \textit{bash} nombrados \href{./run-test}{run-test} y \href{./run-project}{run-project}, que ejecutan los programas en \textit{python} en la secuencia correcta junto con otras acciones necesarias para una ejecución limpia.
 
@@ -301,9 +316,9 @@ El código final obtenido posterior a la etapa de diseño se encuentra en la car
 \begin{verbatim}
 ./run-test
 \end{verbatim}
-\item \textbf{run-project:} Ejecutar el \textit{script} para clasificar una determinada imagen, la ruta donde se encuentra esta imagen es un parámetro del programa. El comando es, desde la carpeta principal del proyecto donde se encuentra \textit{run-project}, como el que sigue:
+\item \textbf{run-knn:} Ejecutar el \textit{script} para clasificar una determinada imagen con algoritmo \textit{K-nn}. La ruta donde se encuentra esta imagen es un parámetro del programa. El comando es, desde la carpeta principal del proyecto donde se encuentra \textit{run-knn}, como el que sigue:
 \begin{verbatim}
-./run-project <ruta de la imagen a clasificar>
+./run-knn <ruta de la imagen a clasificar>
 \end{verbatim}
 \end{itemize}
 
@@ -371,7 +386,7 @@ Para el algoritmo \textit{K-means} se obtuvo los resultados del cuadro \ref{resu
 \label{resultado-kmeans}
 \end{table}
 
-Puede observarse como la cantidad de aciertos para este algoritmo es menor que para el algoritmo \textit{K-nn}. Hay que contemplar que el algoritmo \textit{K-means} es estocástico debido a sus condiciones iniciales aleatorias (por más que se le de una información inicial de cuales son los subconjuntos de cada clase), esto hace que en cada ejecución se obtengan resultados diferentes.
+Puede observarse como la cantidad de aciertos para este algoritmo es menor que para el algoritmo \textit{K-nn}.
 
 Uno de los motivos por los que el algoritmo \textit{K-means} no tiene tan buen rendimiento, y que también afecta al algoritmo \textit{K-nn}, es que las diferentes clases no forman conjuntos de puntos con límites definidos. Esto puede observarse en las figuras \ref{hog}, \ref{hu_moments}, \ref{haralick_textures} y \ref{color_histogram}. Los subconjuntos de puntos se superponen, entonces al ejecutarse el algoritmo, por cómo esta diseñado, una de las clases tiene predominancia sobre otra (esto puede observarse bien en las distribuciones finales obtenidas en el cuadro \ref{resultado-kmeans}). Esta superposición de conjuntos lógicamente afecta al algoritmo \textit{K-nn} al encerrar los vecinos más cercanos en una circunferencia.
 
@@ -395,15 +410,81 @@ Para la elección del $K$ del algoritmo, se ejecuto repetidas veces variando est
 
 Como puede observarse, los valores más altos se encuentran entre $K=20$ y $K=30$, por lo que se termina adoptando un valor de \textbf{K igual a 24}.
 
+Con ésta última forma de extraer características de las imágenes, el algoritmo \textit{K-means} tiene un porcentaje de aciertos del $95.0\%$, por lo que todavía no se descarta su uso. Dado el gran parecido con los resultados de \textit{K-nn}, se procede a observar casos particulares para decidir que algoritmo utilizar.
+
+En el cuadro \ref{tiempo-ejecucion}, se puede observar la gran diferencia de tiempo de ejecución entre los algoritmos, la cuál es una ventaja importante del algoritmo \textit{K-means}.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{K-nn} &  &  & \begin{tabular}[c]{@{}c@{}}Clasificación:\\ 0m 6.387s\\ (Variable con el tamaño\\ de la base de datos)\end{tabular} \\ \cline{1-1} \cline{3-4} 
+\textbf{K-means} & \multirow{-2}{*}{\begin{tabular}[c]{@{}c@{}}Análisis de base de datos:\\ 1m 34.254s\end{tabular}} & \begin{tabular}[c]{@{}c@{}}Entrenamiento del algoritmo:\\ 0m 1.279s\\ (Variable con el tamaño\\ de la base de datos)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Clasificación:\\ 0m 0.551s\end{tabular} \\ \hline
+\end{tabular}
+\caption{Comparación del tiempo de ejecución de algoritmos \textit{K-nn} y \textit{K-means}, en igualdad de condiciones.}
+\label{tiempo-ejecucion}
+\end{table}
+
 % EJEMPLO DE APLICACIÓN
 \section{Ejemplo de aplicación}
-A continuación, se muestra como ejemplo la ejecución del proyecto para clasificar una fruta de cada clase. Las imágenes a clasificar se exponen en la figura.
+A continuación, se muestra como ejemplo la ejecución del proyecto para clasificar una fruta de cada clase, figura \ref{frutas}.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{imgs/test-banana.jpg}
+        \caption{Banana}
+        \label{banana}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{imgs/test-orange.jpg}
+        \caption{Naranja}
+        \label{naranja}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{imgs/test-lemon.jpg}
+        \caption{Limón}
+        \label{limon}
+    \end{subfigure}
+    \caption{Fotografías de frutas a clasificar.}\label{frutas}
+\end{figure}
+
+Para algoritmo \textit{K-nn}:
+\begin{itemize}
+\item Banana: Se obtiene en consola la figura \ref{knn-banana}. Como puede observarse, por ser la primera ejecución, el archivo \textit{dataset.pkl} que contiene la base de datos analizada no existe. Entonces, el programa procede a analizar la base de datos y luego ejecutar el algoritmo. La penúltima línea da la clase final, en este caso "banana", y la última línea indica en porcentajes la distribución de los $K$ vecinos más cercanos.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{imgs/knn-banana.png}
+\caption{Análisis con algoritmo \textit{K-nn}, de la fotografía \ref{banana}.}
+\label{knn-banana}
+\end{figure}
+
+\item Naranja: Se obtiene en consola la figura \ref{knn-naranja}. Ahora como es la segunda ejecución, y el archivo \textit{dataset.pkl} ya existe, el programa directamente ejecuta el algoritmo utilizando la base de datos ya analizada, y da la respuesta. Puede apreciarse como entre naranjas y limones la diferencia de características es menor, y la respuesta final ahora es con un $87\%$ de seguridad.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{imgs/knn-orange.png}
+\caption{Análisis con algoritmo \textit{K-nn}, de la fotografía \ref{naranja}.}
+\label{knn-naranja}
+\end{figure}
+
+\item Limón: Se obtiene en consola la figura \ref{knn-limon}, donde nuevamente no es necesario analizar la base de datos porque el archivo \textit{dataset.pkl} con esta información ya existe.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{imgs/knn-lemon.png}
+\caption{Análisis con algoritmo \textit{K-nn}, de la fotografía \ref{limon}.}
+\label{knn-limon}
+\end{figure}
+
+\end{itemize}
 
 % CONCLUSIONES
 \section{Conclusiones}
 Con todo lo estudiado, puede concluirse que el algoritmo a implementar es el \textbf{K-nn}, con \textbf{K igual a 24}; utilizando \textbf{filtro Gaussian} con \textbf{$\sigma$ igual a 1} para la eliminación de ruido y \textbf{filtro Sobel} para la detección de bordes; y así luego utilizar las \textbf{componentes 0, 1 y 3} del vector obtenido con \textbf{Hu Moments} para la extracción de características.
 
-El algoritmo \textit{K-nn} dio mejores resultados, sin embargo una de sus mayores desventajas al compararlo con el algoritmo \textit{K-means} es el \textbf{tiempo de ejecución}. Si recordamos el algoritmo \textit{K-nn}, compara el vector de características de la imagen a clasificar con el vector de características de cada una de las imágenes en el \textit{data set}, mientras que \textit{K-means} solo calcula la distancia a los tres diferentes means a la hora de realizar la clasificación, separando el proceso de clasificación del de entrenamiento. Por lo tanto, si la velocidad necesaria a la hora de clasificar una fruta es determinante, y el algoritmo \textit{K-nn} no cumple con este requerimiento, será necesario seguir estudiando el algoritmo \textit{K-means} y todas la formas posibles de optimizarlo.
+El algoritmo \textit{K-nn} dio mejores resultados, sin embargo una de sus mayores desventajas al compararlo con el algoritmo \textit{K-means} es el \textbf{tiempo de ejecución}, ver cuadro \ref{tiempo-ejecucion}. Si recordamos el algoritmo \textit{K-nn}, compara el vector de características de la imagen a clasificar con el vector de características de cada una de las imágenes en el \textit{data set}, mientras que \textit{K-means} solo calcula la distancia a los tres diferentes means a la hora de realizar la clasificación, separando el proceso de clasificación del de entrenamiento. Por lo tanto, si la velocidad necesaria a la hora de clasificar una fruta es determinante, y el algoritmo \textit{K-nn} no cumple con este requerimiento, será necesario seguir estudiando el algoritmo \textit{K-means} y todas la formas posibles de optimizarlo.
 
 Respecto al punto anterior, un trabajo posterior al proyecto es ampliar y mejorar la base de datos utilizada, tanto en extensión como en calidad de fotografías. Una base de datos más extensa mejorará el nivel de desempeño de los algoritmos, pero también hay que tener en cuenta que aumentará el tiempo de ejecución del algoritmo \textit{K-nn}. La \textbf{relación de compromiso entre tamaño de la base de datos y tiempo de ejecución} también determinará la elección de uno de los dos algoritmos.
 

@@ -16,7 +16,7 @@ k = 24
 
 # IMPORT Y ANALISIS DE IMAGEN A CLASIFICAR
 fruit = Elemento()
-image = io.imread(sys.argv[2])
+image = io.imread('../' + sys.argv[2])
 
 fruit.image, fruit.feature = ft_extract(image)
 
