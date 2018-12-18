@@ -12,7 +12,7 @@ data = pickle.load(f)
 f.close()
 
 # K AJUSTADO POR EXPERIENCIA
-k = 10
+k = 24
 
 # IMPORT Y ANALISIS DE IMAGEN A CLASIFICAR
 fruit = Elemento()
@@ -45,13 +45,13 @@ eval = [0, 0, 0]
 for i in range(0, k):
 
     if (data[i].label == 'banana'):
-        eval[0] += 10
+        eval[0] += 100 / k
 
     if (data[i].label == 'orange'):
-        eval[1] += 10
+        eval[1] += 100 / k
 
     if (data[i].label == 'lemon'):
-        eval[2] += 10
+        eval[2] += 100 / k
 
 aux = eval[0]
 if (aux < eval[1]):

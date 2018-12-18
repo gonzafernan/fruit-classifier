@@ -287,7 +287,7 @@ En esta etapa se implementan los dos algoritmos de clasificación a utilizar: \t
 
 En este último paso, a diferencia de la implementación inicial, no se trabaja con una imagen ejemplo, sino con toda la base de datos. Se divide toda la información en dos subconjuntos, uno para el entrenamiento de los algoritmos y otro de testeo para calificar su desempeño.
 
-Se ejecuto numeradas veces con el objetivo de comparar resultados utilizando o no filtros, segmentación y diferentes métodos de extracción de características. Los resultados obtenidos se exponen en la sección.
+Se ejecuto numeradas veces con el objetivo de comparar resultados utilizando o no filtros, segmentación y diferentes métodos de extracción de características. Los resultados obtenidos se exponen en la sección \ref{resultados}.
 
 % CÓDIGO
 \section{Código}
@@ -315,11 +315,8 @@ En la figura se expone la estructura de carpetas del proyecto.
 \label{folders}
 \end{figure}
 
-% EJEMPLO DE APLICACIÓN
-\section{Ejemplo de aplicación}
-
 % RESULTADOS
-\section{Resultados}
+\section{Resultados\label{resultados}}
 Los resultados obtenidos son en referencia a la base de datos utilizada. Como se mencionó previamente, se divide en dos subconjuntos de imágenes: uno de entrenamiento y otro de testeo. Los resultados se dan en \textbf{porcentaje de aciertos en predicciones del conjunto de testeo}.
 
 El objetivo del conjunto de testeo es dar una noción de que métodos de extracción de características, filtros y segmentados, dan mejores resultados y tomar una decisión en el diseño final del agente en base a ello. 
@@ -375,9 +372,33 @@ Puede observarse como la cantidad de aciertos para este algoritmo es menor que p
 
 Uno de los motivos por los que el algoritmo \textit{K-means} no tiene tan buen rendimiento, y que también afecta al algoritmo \textit{K-nn}, es que las diferentes clases no forman conjuntos de puntos con límites definidos. Esto puede observarse en las figuras \ref{hog}, \ref{hu_moments}, \ref{haralick_textures} y \ref{color_histogram}. Los subconjuntos de puntos se superponen, entonces al ejecutarse el algoritmo, por cómo esta diseñado, una de las clases tiene predominancia sobre otra (esto puede observarse bien en las distribuciones finales obtenidas en el cuadro \ref{resultado-kmeans}). Esta superposición de conjuntos lógicamente afecta al algoritmo \textit{K-nn} al encerrar los vecinos más cercanos en una circunferencia.
 
+Luego de elegir el algoritmo \textit{K-nn} como el algoritmo con el que se obtienen mejores resultados, y el método \textit{Hu Moments} para extracción de características; se comparó el vector de características crudo, de 7 componentes, con el vector de dos componentes que son la media aritmética y la desviación estándar. El vector de características de 7 componentes da por resultado un \textbf{85.0$\%$} de predicciones correctas en el \textit{data set} de fotografías propias, frente al 76.7$\%$ de predicciones correctas con el vector de 2 componentes. Luego de comprobar esto, con el objetivo de obtener conjuntos con límites aún más marcados, se compararon combinaciones de componentes del vector \textit{Hu Moments}, obteniendo resultados de $91.2\%$ con componentes 0 y 1; y $95.0\%$ con \textbf{tres componentes 0, 1 y 3} como se observa en la figura \ref{final-feature}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{imgs/final-feature.png}
+\caption{Vector de características formado por componentes 0, 1 y 3 del vector \textit{Hu Moments}.}
+\label{final-feature}
+\end{figure}
+
+Para la elección del $K$ del algoritmo, se ejecuto repetidas veces variando este parámetro desde 1 a 25, obteniendo los valores de la figura \ref{funcion-k}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{imgs/funcion-k.png}
+\caption{Porcentaje de predicciones correctas en función de $K$ para el algoritmo \textit{K-nn}.}
+\label{funcion-k}
+\end{figure}
+
+Como puede observarse, los valores más altos se encuentran entre $K=20$ y $K=30$, por lo que se termina adoptando un valor de \textbf{K igual a 24}.
+
+% EJEMPLO DE APLICACIÓN
+\section{Ejemplo de aplicación}
+
+
 % CONCLUSIONES
 \section{Conclusiones}
-Con todo lo estudiado, puede concluirse que el algoritmo a implementar es el \textbf{K-nn}, con \textbf{K igual a 10}; utilizando \textbf{filtro Gaussian} con \textbf{$\sigma$ igual a 1} para la eliminación de ruido y \textbf{filtro Sobel} para la detección de bordes; y así luego utilizar \textbf{Hu Moments} para la extracción de características.
+Con todo lo estudiado, puede concluirse que el algoritmo a implementar es el \textbf{K-nn}, con \textbf{K igual a 24}; utilizando \textbf{filtro Gaussian} con \textbf{$\sigma$ igual a 1} para la eliminación de ruido y \textbf{filtro Sobel} para la detección de bordes; y así luego utilizar \textbf{Hu Moments} para la extracción de características.
 
 El algoritmo \textit{K-nn} dio mejores resultados, sin embargo una de sus mayores desventajas al compararlo con el algoritmo \textit{K-means} es el \textbf{tiempo de ejecución}. Si recordamos el algoritmo \textit{K-nn}, compara el vector de características de la imagen a clasificar con el vector de características de cada una de las imágenes en el \textit{data set}, mientras que \textit{K-means} solo calcula la distancia a los tres diferentes means a la hora de realizar la clasificación, separando el proceso de clasificación del de entrenamiento. Por lo tanto, si la velocidad necesaria a la hora de clasificar una fruta es determinante, y el algoritmo \textit{K-nn} no cumple con este requerimiento, será necesario seguir estudiando el algoritmo \textit{K-means} y todas la formas posibles de optimizarlo.
 

@@ -26,9 +26,9 @@ b_flag = True
 o_flag = True
 l_flag = True
 
-b_len = [0, 0]
-o_len = [0, 0]
-l_len = [0, 0]
+b_len = [0, 0, 0]
+o_len = [0, 0, 0]
+l_len = [0, 0, 0]
 
 iter = 0
 
@@ -69,27 +69,35 @@ while (iter < 20):
             lemon_data.append(element.feature)
 
     # ACTUALIZACION
-    sum_b = [0, 0]
+    sum_b = [0, 0, 0]
     for b in banana_data:
         sum_b[0] += b[0]
         sum_b[1] += b[1]
+        sum_b[2] += b[2]
 
-    sum_o = [0, 0]
+    sum_o = [0, 0, 0]
     for o in orange_data:
         sum_o[0] += o[0]
         sum_o[1] += o[1]
+        sum_o[2] += o[2]
 
-    sum_l = [0, 0]
+    sum_l = [0, 0, 0]
     for l in lemon_data:
         sum_l[0] += l[0]
         sum_l[1] += l[1]
+        sum_l[2] += l[2]
 
     b_mean[0] = sum_b[0] / len(banana_data)
     b_mean[1] = sum_b[1] / len(banana_data)
+    b_mean[2] = sum_b[2] / len(banana_data)
+
     o_mean[0] = sum_o[0] / len(orange_data)
     o_mean[1] = sum_o[1] / len(orange_data)
+    o_mean[2] = sum_o[2] / len(orange_data)
+
     l_mean[0] = sum_l[0] / len(lemon_data)
     l_mean[1] = sum_l[1] / len(lemon_data)
+    l_mean[2] = sum_l[1] / len(lemon_data)
 
     # print(len(banana_data), len(orange_data), len(lemon_data))
 

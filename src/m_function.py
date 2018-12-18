@@ -81,19 +81,25 @@ def ft_extract(image):
     image = normSize(image, size=tuple((400, 300)))
     aux = img2grey(image, mode='cv')
     aux = imgClean(aux, mode='cv')
-    aux = imgEdge(aux)
 
     # image_fht = haralick(aux)
+
+    aux = imgEdge(aux)
+
     image_fhm = hu_moments(aux)
 
     # image_fch = color_histogram(image)
     # image_fhog = m_hog(aux)
 
     # feature = np.hstack([image_fht, image_fhm, image_fhog])
-    med, dstd = stats(image_fhm)
+    # med1, dstd1 = stats(image_fhm)
     # feature = feature.reshape(1, -1)
+    # med2, dstd2 = stats(image_fht)
+    # med2 = med2 * 10**5
+    # dstd2 = dstd2 * 10**4
 
-    return aux, [med, dstd]
+    # return aux, [med1, dstd1, med2, dstd2]
+    return aux, [image_fhm[0], image_fhm[1], image_fhm[3]]
 
 
 # https://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console

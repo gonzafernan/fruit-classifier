@@ -45,16 +45,7 @@ for t in test:
 
     eval = [0, 0, 0]
 
-    if (data[0].label == 'banana'):
-        eval[0] += 30
-
-    if (data[0].label == 'orange'):
-        eval[1] += 30
-
-    if (data[0].label == 'lemon'):
-        eval[2] += 30
-
-    for i in range(1, k):
+    for i in range(0, k):
 
         if (data[i].label == 'banana'):
             eval[0] += 10
@@ -73,10 +64,10 @@ for t in test:
 
     if (aux == eval[0]):
         label = 'banana'
-        
+
     if (aux == eval[1]):
         label = 'orange'
-        
+
     if (aux == eval[2]):
         label = 'lemon'
 

@@ -16,7 +16,7 @@ echo "Test data analysis..."
 python test.py
 
 echo "Running K-nn algorthm..."
-python knn-performance.py 10
+python knn-performance.py 24
 
 echo "Training K-means algorithm..."
 python kmeans-train.py
