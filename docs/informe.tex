@@ -11,6 +11,8 @@
 %GRAFICOS
 \usepackage{graphicx}
 \usepackage{subcaption}
+\usepackage{wrapfig}
+\usepackage{float}
 
 % TABLAS
 \usepackage{multirow}
@@ -322,15 +324,6 @@ El código final obtenido posterior a la etapa de diseño se encuentra en la car
 \end{verbatim}
 \end{itemize}
 
-En la figura se expone la estructura de carpetas del proyecto.
-
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.4]{imgs/folders-structure.png}
-\caption{Estructura de carpetas del proyecto.}
-\label{folders}
-\end{figure}
-
 Las \textbf{dependencias}, es decir, las librerías necesarias de \textit{Python} para poder ejecutar el proyecto son: \textit{Numpy}, \textit{Skimage}, \textit{cv2} (OpenCV), \textit{Mahotas}, \textit{Pickle}, \textit{sys} y \textit{random}.
 
 % RESULTADOS
@@ -341,7 +334,7 @@ El objetivo del conjunto de testeo es dar una noción de que métodos de extracc
 
 En el cuadro \ref{resultado-knn} se exponen los resultados obtenidos con los diferentes \textit{data sets} para el algoritmo \textit{K-nn}.
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
@@ -394,7 +387,7 @@ Luego de elegir el algoritmo \textit{K-nn} como el algoritmo con el que se obtie
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.6\textwidth]{imgs/final-feature.png}
+\includegraphics[width=0.55\textwidth]{imgs/final-feature.png}
 \caption{Vector de características formado por componentes 0, 1 y 3 del vector \textit{Hu Moments}.}
 \label{final-feature}
 \end{figure}
@@ -403,7 +396,7 @@ Para la elección del $K$ del algoritmo, se ejecuto repetidas veces variando est
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.6\textwidth]{imgs/funcion-k.png}
+\includegraphics[width=0.55\textwidth]{imgs/funcion-k.png}
 \caption{Porcentaje de predicciones correctas en función de $K$ para el algoritmo \textit{K-nn}.}
 \label{funcion-k}
 \end{figure}
@@ -432,17 +425,17 @@ A continuación, se muestra como ejemplo la ejecución del proyecto para clasifi
 \begin{figure}[h]
     \centering
     \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[width=\textwidth]{imgs/test-banana.jpg}
+        \includegraphics[width=0.8\textwidth]{imgs/test-banana.jpg}
         \caption{Banana}
         \label{banana}
     \end{subfigure}
     \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[width=\textwidth]{imgs/test-orange.jpg}
+        \includegraphics[width=0.8\textwidth]{imgs/test-orange.jpg}
         \caption{Naranja}
         \label{naranja}
     \end{subfigure}
     \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[width=\textwidth]{imgs/test-lemon.jpg}
+        \includegraphics[width=0.8\textwidth]{imgs/test-lemon.jpg}
         \caption{Limón}
         \label{limon}
     \end{subfigure}
@@ -453,32 +446,67 @@ Para algoritmo \textit{K-nn}:
 \begin{itemize}
 \item Banana: Se obtiene en consola la figura \ref{knn-banana}. Como puede observarse, por ser la primera ejecución, el archivo \textit{dataset.pkl} que contiene la base de datos analizada no existe. Entonces, el programa procede a analizar la base de datos y luego ejecutar el algoritmo. La penúltima línea da la clase final, en este caso "banana", y la última línea indica en porcentajes la distribución de los $K$ vecinos más cercanos.
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.8\textwidth]{imgs/knn-banana.png}
-\caption{Análisis con algoritmo \textit{K-nn}, de la fotografía \ref{banana}.}
-\label{knn-banana}
-\end{figure}
-
 \item Naranja: Se obtiene en consola la figura \ref{knn-naranja}. Ahora como es la segunda ejecución, y el archivo \textit{dataset.pkl} ya existe, el programa directamente ejecuta el algoritmo utilizando la base de datos ya analizada, y da la respuesta. Puede apreciarse como entre naranjas y limones la diferencia de características es menor, y la respuesta final ahora es con un $87\%$ de seguridad.
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.8\textwidth]{imgs/knn-orange.png}
-\caption{Análisis con algoritmo \textit{K-nn}, de la fotografía \ref{naranja}.}
-\label{knn-naranja}
-\end{figure}
-
 \item Limón: Se obtiene en consola la figura \ref{knn-limon}, donde nuevamente no es necesario analizar la base de datos porque el archivo \textit{dataset.pkl} con esta información ya existe.
+\end{itemize}
 
 \begin{figure}[h]
-\centering
-\includegraphics[width=0.8\textwidth]{imgs/knn-lemon.png}
-\caption{Análisis con algoritmo \textit{K-nn}, de la fotografía \ref{limon}.}
-\label{knn-limon}
+    \centering
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+		\includegraphics[width=0.8\textwidth]{imgs/knn-banana.png}
+		\caption{Análisis con algoritmo \textit{K-nn}, de la fotografía \ref{banana}.}
+		\label{knn-banana}
+    \end{subfigure}
+    \begin{subfigure}[b]{\textwidth}
+    	\centering
+        \includegraphics[width=0.8\textwidth]{imgs/knn-orange.png}
+		\caption{Análisis con algoritmo \textit{K-nn}, de la fotografía \ref{naranja}.}
+		\label{knn-naranja}
+    \end{subfigure}
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+		\includegraphics[width=0.8\textwidth]{imgs/knn-lemon.png}
+		\caption{Análisis con algoritmo \textit{K-nn}, de la fotografía \ref{limon}.}
+		\label{knn-limon}
+    \end{subfigure}
+    \caption{Ejemplos de aplicación del algoritmo \textit{K-nn}}\label{knn-aplicacion}
 \end{figure}
+
+Para algoritmo \textit{K-means}:
+\begin{itemize}
+\item Banana: Se obtiene en consola la figura \ref{kmeans-banana}. Como puede observarse, por ser la primera ejecución, los archivos \textit{dataset.pkl} que contiene la base de datos analizada y \textit{means.pkl} con los tres vectores \textit{means} finales, no existen. Entonces, el programa procede a analizar la base de datos y entrenar el algoritmo para conseguir los \textit{means}. Luego, ejecuta el algoritmo. La última línea es la clase asignada a la imagen de entrada.
+
+\item Naranja: Se obtiene en consola la figura \ref{kmeans-naranja}. Ahora como es la segunda ejecución, y los archivos \textit{dataset.pkl} y \textit{means.pkl} ya existen, el programa directamente ejecuta la clasificación utilizando los vectores en el archivo \textit{means.pkl}, y da la respuesta.
+
+\item Limón: Se obtiene en consola la figura \ref{kmeans-limon}, donde nuevamente no es necesario analizar la base de datos porque el archivo \textit{dataset.pkl} con esta información ya existe, ni entrenar el algoritmo porque los vectores a utilizar se encuentran en \textit{means.pkl}.
 
 \end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+		\includegraphics[width=0.8\textwidth]{imgs/kmeans-banana.png}
+		\caption{Análisis con algoritmo \textit{K-means}, de la fotografía \ref{banana}.}
+		\label{kmeans-banana}
+    \end{subfigure}
+    \begin{subfigure}[b]{\textwidth}
+    	\centering
+        \includegraphics[width=0.8\textwidth]{imgs/kmeans-orange.png}
+		\caption{Análisis con algoritmo \textit{K-means}, de la fotografía \ref{naranja}.}
+		\label{kmeans-naranja}
+    \end{subfigure}
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+		\includegraphics[width=0.8\textwidth]{imgs/kmeans-lemon.png}
+		\caption{Análisis con algoritmo \textit{K-means}, de la fotografía \ref{limon}.}
+		\label{kmeans-limon}
+    \end{subfigure}
+    \caption{Ejemplos de aplicación del algoritmo \textit{K-means}}\label{kmeans-aplicacion}
+\end{figure}
+
 
 % CONCLUSIONES
 \section{Conclusiones}

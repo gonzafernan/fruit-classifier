@@ -20,7 +20,7 @@ sum_l = 0
 
 # IMPORT Y ANALISIS DE IMAGEN A CLASIFICAR
 fruit = Elemento()
-image = io.imread(sys.argv[1])
+image = io.imread('../' + sys.argv[1])
 
 fruit.image, fruit.feature = ft_extract(image)
 
