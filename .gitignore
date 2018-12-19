@@ -24,6 +24,8 @@ notas.txt.save
 data/
 data_back/
 dataset/
+data_digital/
+test_digital/
 
 src/data.pkl
 src/test.pkl
