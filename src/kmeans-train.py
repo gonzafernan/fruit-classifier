@@ -30,14 +30,12 @@ b_flag = True
 o_flag = True
 l_flag = True
 
-b_len = [0, 0, 0]
-o_len = [0, 0, 0]
-l_len = [0, 0, 0]
+b_prev = b_mean
+o_prev = o_mean
+l_prev = l_mean
 
-iter = 0
-
-# while (b_flag or o_flag or l_flag):
-while (iter < 20):
+flag = True
+while (flag):
 
     banana_data = []
     orange_data = []
@@ -103,27 +101,14 @@ while (iter < 20):
     l_mean[1] = sum_l[1] / len(lemon_data)
     l_mean[2] = sum_l[2] / len(lemon_data)
 
-    # print(len(banana_data), len(orange_data), len(lemon_data))
-
     # CONVERGENCIA Y CONDICIÓN DE SALIDA
     # print(len(banana_data), len(orange_data), len(lemon_data))
-
-    if (b_mean == b_len):
-        b_flag = False
+    if (b_mean == b_prev and o_mean == o_prev and l_mean == l_prev):
+        flag = False
     else:
-        b_len = b_mean
-
-    if (o_mean == o_len):
-        o_flag = False
-    else:
-        o_len = o_mean
-
-    if (l_mean == l_len):
-        l_flag = False
-    else:
-        l_len = l_mean
-
-    iter += 1
+        b_prev = b_mean
+        o_prev = o_mean
+        l_prev = l_mean
 
 f = open('means.pkl', 'wb')
 pickle.dump([b_mean, o_mean, l_mean], f)

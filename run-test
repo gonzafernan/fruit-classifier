@@ -19,7 +19,7 @@ echo "Running K-nn algorthm..."
 python knn-performance.py 24
 
 echo "Training K-means algorithm..."
-python kmeans-train.py
+python kmeans-train.py data
 
 echo "Running K-means algorithm..."
 python kmeans-performance.py
